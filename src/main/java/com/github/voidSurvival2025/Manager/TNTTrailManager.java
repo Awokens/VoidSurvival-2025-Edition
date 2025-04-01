@@ -1,6 +1,7 @@
 package com.github.voidSurvival2025.Manager;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -75,8 +76,6 @@ public class TNTTrailManager {
 
             if (this.counter - tier <= 0.0) return;
 
-            connectedBlock.breakNaturally(true);
-
             location.getWorld().playSound(
                     location, Sound.BLOCK_GRAVEL_BREAK, 0.5F, 0.5F);
             location.getWorld().playSound(
@@ -91,7 +90,7 @@ public class TNTTrailManager {
                 public void run() {
                     trail(connectedBlock);
                 }
-            }.runTaskLater(plugin, 5L);
+            }.runTaskLater(plugin, 4L);
         }
     }
 }

@@ -19,7 +19,17 @@ public class Skeleton implements Listener {
         EntityDamageEvent cause = skeleton.getLastDamageCause();
 
         if (cause == null) return;
-        if (cause.getCause() != EntityDamageEvent.DamageCause.FIRE) return;
+
+        switch (cause.getCause()) {
+            case FIRE:
+            case CAMPFIRE:
+            case FIRE_TICK:
+            case LAVA:
+            case HOT_FLOOR:
+                break;
+            default:
+                return;
+        }
 
         Location location = skeleton.getLocation();
         Location below = location.clone().subtract(0, 1, 0);

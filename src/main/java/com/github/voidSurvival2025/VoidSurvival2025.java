@@ -2,6 +2,7 @@ package com.github.voidSurvival2025;
 
 import com.github.voidSurvival2025.Commands.*;
 import com.github.voidSurvival2025.Commands.Admin.ForceResetWorld;
+import com.github.voidSurvival2025.Commands.Admin.MaxHealthCmd;
 import com.github.voidSurvival2025.Features.Entities.*;
 import com.github.voidSurvival2025.Features.Interact.*;
 import com.github.voidSurvival2025.Features.Player.*;
@@ -11,6 +12,7 @@ import com.github.voidSurvival2025.Features.Powerskulls.ZombieSkull;
 import com.github.voidSurvival2025.Manager.ConfigManager;
 import com.github.voidSurvival2025.Manager.LuckPermsManager;
 import com.github.voidSurvival2025.Manager.Schedulers.RandomItems;
+import com.github.voidSurvival2025.Manager.Schedulers.TipAnnouncements;
 import com.github.voidSurvival2025.Manager.WorldResetManager;
 import com.samjakob.spigui.SpiGUI;
 import dev.jorel.commandapi.CommandAPI;
@@ -22,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -32,8 +35,9 @@ public final class VoidSurvival2025 extends JavaPlugin {
     private WorldResetManager mapResetScheduler;
     private SpiGUI spiGUI;
 
+    private BukkitTask tipAnnouncements;
+
     public LuckPermsManager luckPermsUtils() { return luckPermsManager; }
-//    public CustomRecipesManager recipeManager() { return customRecipesManager; }
     public WorldResetManager worldResetManager() {
         return mapResetScheduler;
     }
@@ -45,12 +49,16 @@ public final class VoidSurvival2025 extends JavaPlugin {
     public void onLoad() {
         CommandAPI.onLoad(new CommandAPIBukkitConfig(this).shouldHookPaperReload(true));
 
+        new PlayerStatsCmd(this);
+        new MaxHealthCmd(this);
+        new NonchestCmd();
         new HatCmd();
         new WikiCmd(this);
         new ForceResetWorld(this);
         new ToggleCmd(this);
         new CommandsCmd();
         new RespawnCmd();
+        new DiscordCmd();
     }
 
     @Override
@@ -69,11 +77,11 @@ public final class VoidSurvival2025 extends JavaPlugin {
                 20L, 20L * 10
         );
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.playerListName(MiniMessage.miniMessage().deserialize(
-                    "<white>" + player.getName() + "<yellow> " + player.getStatistic(Statistic.FISH_CAUGHT)
-            ));
-        }
+
+        tipAnnouncements = this.getServer().getScheduler().runTaskTimer(
+                this,
+                new TipAnnouncements(this),
+                20L, 20L * 60L * 4 L);
 
 
     }
@@ -82,13 +90,15 @@ public final class VoidSurvival2025 extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         CommandAPI.onDisable();
+
+        tipAnnouncements.cancel();
+
         worldResetManager()
                 .getMapResetBar()
                 .setVisible(false);
         worldResetManager()
                 .getTask()
                 .cancel();
-        Bukkit.clearRecipes();
     }
 
     private void registerListeners() {
@@ -102,6 +112,7 @@ public final class VoidSurvival2025 extends JavaPlugin {
                 new Guardian(),
 
                 // Interact
+                new CorianRoot(),
                 new EnderEyePlace(this),
                 new CraftingTable(),
                 new DirtClaySand(),
@@ -109,6 +120,7 @@ public final class VoidSurvival2025 extends JavaPlugin {
                 new EntityExplode(this),
                 new NautilusShell(),
                 new SuspiciousSand(),
+                new LavaCauldronMechanism(this),
 
                 // Player
                 new PlayerSaddleRidePlayer(this),

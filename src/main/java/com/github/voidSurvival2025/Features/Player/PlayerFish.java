@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.Statistic;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -51,7 +52,13 @@ public class PlayerFish implements Listener {
 
         Random random = new Random();
 
-        double probability = 0.01D;
+
+        int lure = player.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.LURE) + 1;
+
+        double probability = 0.01D * lure;
+
+
+
         double randomNumber = random.nextDouble();
 
         if (randomNumber > probability) return;

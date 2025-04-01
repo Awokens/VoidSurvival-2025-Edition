@@ -28,13 +28,14 @@ public class Guardian implements Listener {
         int lootingLevel = player.getInventory()
                 .getItemInMainHand().
                 getEnchantmentLevel(Enchantment.LOOTING);
-        double chance = 15 + (11.667 * lootingLevel);
+        double chance = 30 + (11.667 * lootingLevel);
         double randomValue = random.nextDouble() * 100;
 
         if (randomValue <= chance) {
             event.getDrops().add(new ItemStack(Material.HEART_OF_THE_SEA, 1));
         }
 
+        event.getDrops().add(new ItemStack(Material.HEART_OF_THE_SEA, 1));
         PotionEffect potionEffect = player.getPotionEffect(PotionEffectType.LUCK);
 
         if (potionEffect == null || potionEffect.getAmplifier() < 1) return;

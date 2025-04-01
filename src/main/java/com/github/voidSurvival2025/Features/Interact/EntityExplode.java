@@ -22,7 +22,7 @@ public class EntityExplode implements Listener {
 
 //        NBTEntity nbt = new NBTEntity(tnt);
 
-        int multiplier = 1;
+        int multiplier = 2;
 //        if (nbt.hasTag("boosted")) {
 //            multiplier = 2;
 //        }

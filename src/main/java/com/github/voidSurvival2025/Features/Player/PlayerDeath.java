@@ -25,6 +25,7 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Objects;
 
 public class PlayerDeath implements Listener {
@@ -35,29 +36,46 @@ public class PlayerDeath implements Listener {
         Player victim = event.getPlayer();
         EntityDamageEvent cause = victim.getLastDamageCause();
 
+        victim.setHealthScale(victim.getAttribute(Attribute.MAX_HEALTH).getValue());
+
+
         if (cause == null) return;
 
         DamageSource source = cause.getDamageSource();
 
         if (source.getCausingEntity() == null) return;
 
-        Entity attacker = source.getCausingEntity();
-        if ((!(attacker instanceof Player))) return;
+        Entity entity = source.getCausingEntity();
+        if ((!(entity instanceof Player attacker))) return;
 
         if (attacker.equals(victim)) return;
+
+        double attackerHealth = attacker.getAttribute(Attribute.MAX_HEALTH).getValue();
+        attacker.getAttribute(Attribute.MAX_HEALTH).setBaseValue(attackerHealth);
+        attacker.setHealthScale(attackerHealth);
+
+
+        if (attackerHealth < 20.0) {
+            attackerHealth += 1.0;
+            attacker.getAttribute(Attribute.MAX_HEALTH).setBaseValue(attackerHealth);
+            attacker.setHealthScale(attackerHealth);
+        }
+
 
 
         double health = Objects.requireNonNull(
                 victim.getAttribute(Attribute.MAX_HEALTH)).getValue();
 
-        if (health <= 1.0) {
-            Objects.requireNonNull(victim.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(21.0);
+        if (health <= 1) {
+            event.setKeepInventory(false);
+            Objects.requireNonNull(victim.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(20.0);
+            victim.setHealthScale(20.0);
             return;
         }
 
         health = health - 1.0;
-        Objects.requireNonNull(victim.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(health);
         victim.setHealthScale(health);
+        Objects.requireNonNull(victim.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(health);
     }
 
     @EventHandler

@@ -22,9 +22,9 @@ public class PlayerJoin implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-//        if (plugin.luckPermsUtils().hasBossBarToggled(player)) {
-//            plugin.worldResetManager().getMapResetBar().addPlayer(player);
-//        }
+        if (plugin.luckPermsUtils().hasBossBarToggled(player)) {
+            plugin.worldResetManager().getMapResetBar().addPlayer(player);
+        }
 
         final Component header = MiniMessage.miniMessage().deserialize(
                 "<newline><white><b>VOID SURVIVAL</b></white><newline>"

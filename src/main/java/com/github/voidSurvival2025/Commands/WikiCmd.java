@@ -104,11 +104,25 @@ public class WikiCmd {
                 summon a wither skeleton upon death'>Wither Skeleton</hover>
                 • <hover:show_text:'Burn a skeleton whilst on blackstone to
                 summon a blaze upon death'>Blaze</hover>
-                • <hover:show_text:'Break any leaves to probably drop an apple'>Apple</hover>""");
+                • <hover:show_text:'Break any leaves to probably drop an apple'>Apple</hover>
+                • <hover:show_text:'
+                You lose half a heart each time you die by a player directly
+                
+                Upon your last heart, you drop everything except hot-bar items.
+                
+                Then your max hearts reset.
+                '>Default Heart Loss</hover>""");
+        pages.add("""
+                <bold>CUSTOM RECIPES</bold>
+                
+                • <hover:show_text:'Consume to gain half a heart back
+                or even gain +10 more hearts past the default
+                >Corian Root</hover>
+                """);
         pages.add("""
                 <bold>OVERWORLD</bold>\
-
-                • Keep inventory on
+                
+                • <hover:show_text:'Refer to Player Mechanics page'>Keep inventory on</hover>
                 • Smells like Awokens
                 • Plenty of farming
                 • Clears periodically
@@ -136,7 +150,7 @@ public class WikiCmd {
         pages.add("""
                 <bold>POWERSKULLS</bold>\
                 
-                • <hover:show_text:'Counter arrow projectile damage significantly'>Skeleton</hover>\st
+                • <hover:show_text:'Counter arrow projectile damage significantly'>Skeleton</hover>\s
                 • <hover:show_text:'Saturated and disguised as a mob'>Zombie</hover>
                 • <hover:show_text:'Damage others like Mike Tyson'>Piglin</hover>
                 """);
