@@ -2,6 +2,7 @@ package com.github.voidSurvival2025;
 
 import com.github.voidSurvival2025.Commands.*;
 import com.github.voidSurvival2025.Commands.Admin.ForceResetWorld;
+import com.github.voidSurvival2025.Commands.Admin.InventorySpy;
 import com.github.voidSurvival2025.Commands.Admin.MaxHealthCmd;
 import com.github.voidSurvival2025.Features.Entities.*;
 import com.github.voidSurvival2025.Features.Interact.*;
@@ -17,11 +18,6 @@ import com.github.voidSurvival2025.Manager.WorldResetManager;
 import com.samjakob.spigui.SpiGUI;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.Statistic;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -37,6 +33,8 @@ public final class VoidSurvival2025 extends JavaPlugin {
 
     private BukkitTask tipAnnouncements;
 
+//    private PowerSkullManager powerSkullManager;
+
     public LuckPermsManager luckPermsUtils() { return luckPermsManager; }
     public WorldResetManager worldResetManager() {
         return mapResetScheduler;
@@ -49,6 +47,9 @@ public final class VoidSurvival2025 extends JavaPlugin {
     public void onLoad() {
         CommandAPI.onLoad(new CommandAPIBukkitConfig(this).shouldHookPaperReload(true));
 
+
+//        new PowerSkullCmd(this);
+        new InventorySpy(this);
         new PlayerStatsCmd(this);
         new MaxHealthCmd(this);
         new NonchestCmd();
@@ -65,10 +66,12 @@ public final class VoidSurvival2025 extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         CommandAPI.onEnable();
+
         spiGUI = new SpiGUI(this);
         luckPermsManager = new LuckPermsManager();
         configManager = new ConfigManager(this, getDataFolder());
         mapResetScheduler = new WorldResetManager(this);
+//        this.powerSkullManager = new PowerSkullManager(this);
 
         registerListeners();
         this.getServer().getScheduler().runTaskTimer(
@@ -81,7 +84,7 @@ public final class VoidSurvival2025 extends JavaPlugin {
         tipAnnouncements = this.getServer().getScheduler().runTaskTimer(
                 this,
                 new TipAnnouncements(this),
-                20L, 20L * 60L * 4 L);
+                20L, 20L * 60L * 4L);
 
 
     }
@@ -105,6 +108,7 @@ public final class VoidSurvival2025 extends JavaPlugin {
         List<Listener> listeners = List.of(
 
                 // Entities
+                new CreeperExplosionRadius(),
                 new GodVillager(),
                 new Piglin(this),
                 new Skeleton(),
@@ -112,6 +116,8 @@ public final class VoidSurvival2025 extends JavaPlugin {
                 new Guardian(),
 
                 // Interact
+                new LightningRod(),
+                new FireballProjectile(this),
                 new CorianRoot(),
                 new EnderEyePlace(this),
                 new CraftingTable(),

@@ -34,7 +34,9 @@ public class RandomItems implements Runnable{
         ItemStack item = new ItemStack(randomElement, 1);
 
         for (Player player : plugin.getServer().getOnlinePlayers()) {
-            player.getInventory().addItem(item);
+            if (plugin.luckPermsUtils().hasToggledItems(player)) {
+                player.getInventory().addItem(item);
+            }
         }
     }
 }

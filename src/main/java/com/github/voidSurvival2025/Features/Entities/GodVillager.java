@@ -9,7 +9,9 @@ import org.bukkit.entity.ZombieVillager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.VillagerAcquireTradeEvent;
 import org.bukkit.event.entity.VillagerCareerChangeEvent;
+import org.bukkit.event.entity.VillagerReplenishTradeEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
@@ -20,31 +22,13 @@ import java.util.Random;
 public class GodVillager implements Listener {
 
     @EventHandler
-    public void career(VillagerCareerChangeEvent event) {
+    public void trade(VillagerReplenishTradeEvent event) {
 
-        if (event.getProfession().equals(Villager.Profession.ARMORER) ||
-        event.getProfession().equals(Villager.Profession.LIBRARIAN)) {
+        Villager villager = (Villager) event.getEntity();
+        if (villager.getProfession() == Villager.Profession.LIBRARIAN) {
             event.setCancelled(true);
         }
 
-    }
-
-    @EventHandler
-    public void interact(PlayerInteractEntityEvent event) {
-
-        if (!(event.getRightClicked() instanceof org.bukkit.entity.Villager villager)) return;
-        if (villager.getProfession().equals(Villager.Profession.ARMORER) ||
-                villager.getProfession().equals(Villager.Profession.LIBRARIAN)) {
-            event.setCancelled(true);
-
-            villager.setProfession(org.bukkit.entity.Villager.Profession.NONE);
-        }
-    }
-
-    @EventHandler
-    public void spawn(EntitySpawnEvent event) {
-        if (!(event.getEntity() instanceof ZombieVillager villager)) return;
-        villager.setVillagerProfession(org.bukkit.entity.Villager.Profession.NONE);
     }
 
     @EventHandler

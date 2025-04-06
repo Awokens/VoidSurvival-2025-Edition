@@ -75,12 +75,12 @@ public class WikiCmd {
                 3. Sneak right-click cauldron with 32 cobbled deepslate
                 4. Watch as the cauldron smelts down
                  the cobble deepslate for a bit.
-                5. Vuala! You have lava.'>Lava Making</hover>
+                5. Vuala! You have obsidian.'>Obsidian Making</hover>
                 • <hover:show_text:'Ignite TNT to cause a snake trail explosion.
                 The length of the trail can destroy up to 270 blocks.
                 However if the block has a higher block
                 hardness, it may destroy less.'>Trail TNT</hover>
-                • <hover:show_text:'Revive the dead bush with bone meal back into a tree sapling type'>Dead Bush</hover>
+                • <hover:show_text:'Revive the dead bush with bone meal back into a tree sapling type or a torchflower'>Dead Bush</hover>
                 • <hover:show_text:'Similar to trail TNT, but this time it's a shooting fireball, that's crazy bro!'>Trail Fireball</hover>
                 • <hover:show_text:'Right click a nautilus shell to be given shipwreck treasure loot'>Nautilus Shells</hover>
                 • <hover:show_text:'Right click lightning rod with copper ingot whilst in the

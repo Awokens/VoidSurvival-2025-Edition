@@ -76,10 +76,12 @@ public class TNTTrailManager {
 
             if (this.counter - tier <= 0.0) return;
 
-            location.getWorld().playSound(
-                    location, Sound.BLOCK_GRAVEL_BREAK, 0.5F, 0.5F);
-            location.getWorld().playSound(
-                    location, Sound.ITEM_DYE_USE, 0.5F, 0.5F);
+            location.getBlock().breakNaturally(true);
+
+//            location.getWorld().playSound(
+//                    location, Sound.BLOCK_GRAVEL_BREAK, 0.5F, 0.5F);
+//            location.getWorld().playSound(
+//                    location, Sound.ITEM_DYE_USE, 0.5F, 0.5F);
 
             this.relatives.add(location);
 

@@ -49,6 +49,25 @@ public class LuckPermsManager {
         return metaData.getMetaValue("bossbar", Boolean::parseBoolean).orElse(true);
     }
 
+    public boolean hasVanishToggled(Player player) {
+        CachedMetaData metaData = API.getPlayerAdapter(Player.class).getMetaData(player);
+        return metaData.getMetaValue("vanish", Boolean::parseBoolean).orElse(true);
+    }
+
+    public void setVanishToggled(Player player, boolean toggleBossBar) {
+        // Obtain a User instance via the LuckPerms API
+        User user = API.getPlayerAdapter(Player.class).getUser(player);
+
+        MetaNode node = MetaNode.builder("vanish", Boolean.toString(toggleBossBar)).build();
+
+        user.data().clear(NodeType.META.predicate(mn -> mn.getMetaKey().equals("vanish")));
+        // Add the new node
+        user.data().add(node);
+
+        // Save the changes
+        API.getUserManager().saveUser(user);
+    }
+
     public void setBossBarToggled(Player player, boolean toggleBossBar) {
         // Obtain a User instance via the LuckPerms API
         User user = API.getPlayerAdapter(Player.class).getUser(player);
@@ -63,5 +82,17 @@ public class LuckPermsManager {
 
         // Save the changes
         API.getUserManager().saveUser(user);
+    }
+
+    public String getPlayerRole(Player player) {
+        User user = API.getPlayerAdapter(Player.class).getUser(player);
+
+        CachedMetaData data = user.getCachedData().getMetaData();
+
+        String group = data.getPrimaryGroup();
+        if (group == null || group.equalsIgnoreCase("default")) {
+            return "<color:#b9b9b9>";
+        }
+        return data.getPrefix() + "<white> ";
     }
 }

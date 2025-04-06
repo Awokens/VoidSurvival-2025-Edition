@@ -19,19 +19,13 @@ public class EntityExplode implements Listener {
     public void explode(EntityExplodeEvent event) {
         if (!(event.getEntity() instanceof TNTPrimed tnt)) return;
 
-
-//        NBTEntity nbt = new NBTEntity(tnt);
-
-        int multiplier = 2;
-//        if (nbt.hasTag("boosted")) {
-//            multiplier = 2;
-//        }
+        int multiplier = 1;
 
         event.setCancelled(true);
 
         for (Block connectedBlock : TNTTrailManager.getConnectedBlocks(tnt.getLocation().getBlock())) {
             if (TNTTrailManager.isRelative(connectedBlock)) {
-                new TNTTrailManager(plugin, connectedBlock, (135 * multiplier));
+                new TNTTrailManager(plugin, connectedBlock, (75 * multiplier));
                 break;
             }
         }

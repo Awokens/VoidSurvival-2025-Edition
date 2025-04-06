@@ -7,6 +7,12 @@ version = '3.0.0'
 
 repositories {
     mavenCentral()
+
+    maven {
+        name = 'jitpack'
+        url = 'https://jitpack.io'
+    }
+
     maven {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
@@ -45,6 +51,9 @@ dependencies {
 
     // NBT-API
     compileOnly("de.tr7zw:item-nbt-api-plugin:2.14.1")
+
+
+
 
 }
 

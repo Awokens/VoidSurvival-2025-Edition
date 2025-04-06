@@ -55,5 +55,12 @@ public class DirtMoss implements Listener {
             Material.ACACIA_SAPLING,
             Material.SPRUCE_SAPLING,
             Material.BIRCH_SAPLING,
+            Material.PALE_OAK_SAPLING,
+            Material.TORCHFLOWER,
+            Material.MANGROVE_PROPAGULE,
+            Material.TORCHFLOWER,
+            Material.TORCHFLOWER,
+            Material.TORCHFLOWER,
+            Material.TORCHFLOWER
     };
 }

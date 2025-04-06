@@ -32,8 +32,8 @@ import java.util.concurrent.TimeUnit;
 
 public class WorldResetManager {
     public final long RESET_TIMER = 60 * 60 * 24 * 2;
-    private final float MAX_BORDER_THRESHOLD = 500;
-    private final float MIN_BORDER_THRESHOLD = 200;
+    private final int MAX_BORDER_THRESHOLD = 800;
+    private final int MIN_BORDER_THRESHOLD = 300;
     private final World world = Bukkit.getWorld("world");
     private final BukkitTask task;
     private final BossBar mapResetBar;
@@ -132,8 +132,8 @@ public class WorldResetManager {
 
         return formattedTime.toString().trim();
     }
-    public float randomBorderSize() {
-        return ThreadLocalRandom.current().nextFloat(MIN_BORDER_THRESHOLD, MAX_BORDER_THRESHOLD);
+    public int randomBorderSize() {
+        return ThreadLocalRandom.current().nextInt(MIN_BORDER_THRESHOLD, MAX_BORDER_THRESHOLD);
     }
     public void reset(boolean resetTimer) {
 

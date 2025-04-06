@@ -25,6 +25,7 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -66,16 +67,32 @@ public class PlayerDeath implements Listener {
         double health = Objects.requireNonNull(
                 victim.getAttribute(Attribute.MAX_HEALTH)).getValue();
 
-        if (health <= 1) {
-            event.setKeepInventory(false);
-            Objects.requireNonNull(victim.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(20.0);
-            victim.setHealthScale(20.0);
+        if (health > 1) {
+
+            health = health - 1.0;
+            victim.setHealthScale(health);
+            Objects.requireNonNull(victim.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(health);
             return;
         }
 
-        health = health - 1.0;
-        victim.setHealthScale(health);
-        Objects.requireNonNull(victim.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(health);
+        ArrayList<ItemStack> items = new ArrayList<>();
+
+        for (int i = 9; i < 36; i++) {
+
+            ItemStack item = victim.getInventory().getItem(i);
+
+            if (item == null || item.isEmpty()) continue;
+            items.add(item);
+            victim.getInventory().clear(i);
+        }
+
+        for (ItemStack item : items) {
+            victim.getLocation().getWorld().dropItemNaturally(victim.getLocation(), item);
+        }
+
+        Objects.requireNonNull(victim.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(20.0);
+        victim.setHealthScale(20.0);
+
     }
 
     @EventHandler

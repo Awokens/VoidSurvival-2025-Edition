@@ -38,25 +38,28 @@ public class PlayerChat implements Listener {
 
         String message = event.signedMessage().message().trim();
 
+        Player player = event.getPlayer();
+
+
         if (message.matches(itemPattern)) {
-            item(event.getPlayer());
+            item(player);
             return;
         }
         if (message.matches(invPattern)) {
-            inv(event.getPlayer());
+            inv(player);
             return;
         }
 
         if (message.matches(ecPattern)) {
-            ec(event.getPlayer());
+            ec(player);
             return;
         }
 
 
-        message = "<gray>" + event.getPlayer().getName()
-                + ": <white>" + message;
+        message = plugin.luckPermsUtils().getPlayerRole(player)  + player.getName()
+                + ": <white>" + message.trim();
 
-        final Component component = MiniMessage.miniMessage().deserialize(message.trim());
+        final Component component = MiniMessage.miniMessage().deserialize(message);
 
         Bukkit.broadcast(component);
     }
@@ -77,7 +80,7 @@ public class PlayerChat implements Listener {
                 showItem -> showItem);
 
         final Component component = MiniMessage.miniMessage().deserialize(
-                "<gray>"+ player.getName() + ": <gray>[<aqua>" + amount +
+                plugin.luckPermsUtils().getPlayerRole(player)  + player.getName() + ": <gray>[<aqua>" + amount +
                         "x of " + name +
                         "</aqua>]</gray>"
         ).hoverEvent(hover);
@@ -113,7 +116,7 @@ public class PlayerChat implements Listener {
                     showItem -> showItem);
 
             final Component component = MiniMessage.miniMessage().deserialize(
-                            "<gray>"+ player.getName() + ": " + "<gray>[" + "<yellow>Inventory Snapshot<gray>]")
+                            plugin.luckPermsUtils().getPlayerRole(player) + player.getName() + ": " + "<gray>[" + "<yellow>Inventory Snapshot<gray>]")
                     .hoverEvent(hover)
                     .clickEvent(ClickEvent.callback((callback) -> {
                         individual.openInventory(snapshot.getInventory());
@@ -149,7 +152,7 @@ public class PlayerChat implements Listener {
                     showItem -> showItem);
 
             final Component component = MiniMessage.miniMessage().deserialize(
-                            "<gray>"+ player.getName() + ": " + "<gray>[" + "<yellow>Enderchest Snapshot<gray>]")
+                            plugin.luckPermsUtils().getPlayerRole(player)  + player.getName() + ": " + "<gray>[" + "<yellow>Enderchest Snapshot<gray>]")
                     .hoverEvent(hover)
                     .clickEvent(ClickEvent.callback((callback) -> {
                         individual.openInventory(snapshot.getInventory());

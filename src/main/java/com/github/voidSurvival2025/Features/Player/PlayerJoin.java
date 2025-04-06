@@ -9,6 +9,7 @@ import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -18,6 +19,13 @@ public class PlayerJoin implements Listener {
 
     private final VoidSurvival2025 plugin;
     public PlayerJoin(VoidSurvival2025 plugin) { this.plugin = plugin; }
+
+    @EventHandler
+    public void onConnect(AsyncPlayerPreLoginEvent event) {
+        if (event.getName().equalsIgnoreCase("khyreemckeen0")) {
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, MiniMessage.miniMessage().deserialize("unable to connect to server"));
+        }
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

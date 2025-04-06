@@ -4,4 +4,4 @@ main: com.github.voidSurvival2025.VoidSurvival2025
 api-version: '1.21'
 load: POSTWORLD
 author: 'Dr. Woke'
-depend: [CommandAPI, NBTAPI]
+depend: [CommandAPI, NBTAPI, LiteBans]
