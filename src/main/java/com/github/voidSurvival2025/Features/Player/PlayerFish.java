@@ -27,6 +27,10 @@ public class PlayerFish implements Listener {
         Player player = event.getPlayer();
         PlayerFishEvent.State state = event.getState();
 
+        player.playerListName(MiniMessage.miniMessage().deserialize(
+                "<white>" + player.getName() + " <color:#57caff>\uD83C\uDFA3</color> " + player.getStatistic(Statistic.FISH_CAUGHT)
+        ));
+
         if (state == PlayerFishEvent.State.BITE) {
             player.playSound(player, Sound.ENTITY_PLAYER_SPLASH, 0.5F, 1.0F);
 
@@ -38,12 +42,9 @@ public class PlayerFish implements Listener {
             return;
         }
 
+
+
         if (state != PlayerFishEvent.State.CAUGHT_FISH) return;
-
-        player.playerListName(MiniMessage.miniMessage().deserialize(
-                "<white>" + player.getName() + "<yellow> " + player.getStatistic(Statistic.FISH_CAUGHT)
-        ));
-
         Location head = player.getEyeLocation();
         Vector direction = head.getDirection();
         Location front = head.clone().add(direction.multiply(1));
