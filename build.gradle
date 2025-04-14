@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.github'
-version = '3.0.0'
+version = '3.1.0'
 
 repositories {
     mavenCentral()
@@ -37,6 +37,10 @@ dependencies {
 
     // Custom GUI maker API
     implementation('com.samjakob:SpiGUI:1.4.1')
+//
+//    // LITEBANS API
+//    compileOnly("com.gitlab.ruany:LiteBansAPI:0.6.0")
+
 
     // FAWE WORLDEDIT API
     implementation(platform("com.intellectualsites.bom:bom-newest:1.52")) // Ref: https://github.com/IntellectualSites/bom
