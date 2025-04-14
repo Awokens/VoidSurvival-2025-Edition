@@ -9,9 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class Witch implements Listener {
+public class WitchDrops implements Listener {
 
     @EventHandler
     public void witch(EntityDeathEvent event) {
@@ -21,12 +21,18 @@ public class Witch implements Listener {
 
         if (!(killer instanceof Player player)) return;
 
-        Random random = new Random();
         int lootingLevel = player.getInventory()
                 .getItemInMainHand()
                 .getEnchantmentLevel(Enchantment.LOOTING);
-        double chance = 1 + ((9.0 / 3) * lootingLevel);
-        double randomValue = random.nextDouble() * 100;
+
+
+        if (lootingLevel < 1) {
+            return;
+        }
+
+        double chance = 15 + (5 * lootingLevel);
+
+        double randomValue = ThreadLocalRandom.current().nextInt(1, lootingLevel + 1);
 
         if (randomValue <= chance) {
             event.getDrops().add(new ItemStack(Material.NETHER_WART, 1));
