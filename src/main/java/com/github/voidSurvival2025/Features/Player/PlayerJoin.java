@@ -45,14 +45,14 @@ public class PlayerJoin implements Listener {
         player.sendPlayerListFooter(footer);
 
         player.playerListName(MiniMessage.miniMessage().deserialize(
-                "<white>" + player.getName() + "<yellow> " + player.getStatistic(Statistic.FISH_CAUGHT)
+                "<white>" + player.getName() + " <color:#57caff>\uD83C\uDFA3</color> " + player.getStatistic(Statistic.FISH_CAUGHT)
         ));
 
         String welcome_message;
         if (player.hasPlayedBefore()) {
-            welcome_message = "<color:#44e971><b>WELCOME BACK";
+            welcome_message = "<b><color:#35b7de>SUP NERD</color></b>";
         } else {
-            welcome_message = "<color:#44e971><b>WELCOME";
+            welcome_message = "<color:#44e971><b>WELCOME NEWBIE";
         }
 
         long letterDelay = 20L;
@@ -120,10 +120,21 @@ public class PlayerJoin implements Listener {
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_IMITATE_ENDER_DRAGON, 0.5F, 1F);
 
                 player.sendMessage(MiniMessage.miniMessage().deserialize(
-                        "<newline><b>VOID SURVIVAL</b><newline><newline>"
-                                + "→ New to the server? <green>/wiki</green><newline>"
-                                + "Haven't join our Discord yet?<newline>"
-                                + "→ <color:#308aff><click:open_url:'https://discord.gg/FJKxwNGdVC'>Click this message to join today</click></color><newline>"
+                        """
+                                
+                                <b>LEAP: <color:#ffc400>VOID SURVIVAL</color></b>
+                                
+                                <yellow>What is this server?</yellow>
+                                This is essentially <color:#ffa600>skyblock</color> mashed with\s
+                                a <color:#ffa600>border</color> and a platform in the middle.\s
+                                And you are given <color:#ffa600>wood</color>, <color:#ffa600>cobble</color> and some\s
+                                <color:#ffa600>iron nuggets</color> <color:#ffee00>randomly every 10 seconds</color>.\s
+                                
+                                → Find out more with <green>/wiki</green>
+                                We also have a community discord.\s
+                                → <color:#308aff><click:open_url:'https://discord.gg/FJKxwNGdVC'>https://discord.gg/FJKxwNGdVC</click></color>
+                                
+                                """
                 ));
 
 
