@@ -1,6 +1,5 @@
 package com.github.voidSurvival2025.Commands;
 
-import com.github.voidSurvival2025.VoidSurvival2025;
 import dev.jorel.commandapi.CommandAPICommand;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 

@@ -14,6 +14,7 @@ import java.util.List;
 public class WikiCmd {
 
     private final VoidSurvival2025 plugin;
+
     public WikiCmd(VoidSurvival2025 plugin) {
         this.plugin = plugin;
 
