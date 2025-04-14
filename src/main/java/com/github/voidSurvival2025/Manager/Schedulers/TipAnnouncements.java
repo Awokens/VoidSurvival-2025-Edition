@@ -19,7 +19,7 @@ public class TipAnnouncements implements Runnable {
             "Type <color:#ffac12>/commands</color> to see all the things you can run!",
             "<color:#ffac12>Bats</color> drop leather when they bite the dust!",
             "<color:#ffac12>Drowned</color> don’t spawn with fancy gear. Oops!",
-            "Want to cure a <color:#ffac12>Zombie Nitwit</color>? Use a <color:#ffac12>Potion of Weakness</color> \nand an <color:#ffac12>Enchanted Golden Apple</color>. You got this!",
+//            "Want to cure a <color:#ffac12>Zombie Nitwit</color>? Use a <color:#ffac12>Potion of Weakness</color> \nand an <color:#ffac12>Enchanted Golden Apple</color>. You got this!",
             "Kill an <color:#ffac12>Elder Guardian</color> for <color:#ffac12>Luck 3</color> \nand it might drop a <color:#ffac12>Heart of The Sea</color>. Fancy!",
             "<color:#ffac12>Guardians</color> give you <color:#ffac12>Luck 2</color> when you have <color:#ffac12>Luck 1</color>. It's like a lucky combo!",
             "Feed a <color:#ffac12>Zombified Piglin</color> a <color:#ffac12>Strength Potion</color> \nand an <color:#ffac12>Enchanted Golden Apple</color> to turn them into a <color:#ffac12>Piglin</color>. Magic!",
@@ -38,8 +38,8 @@ public class TipAnnouncements implements Runnable {
             "Right-click a <color:#ffac12>Nautilus Shell</color> \nto get <color:#ffac12>treasure loot</color>. Who doesn’t love treasure?",
             "Right-click a <color:#ffac12>lightning rod</color> with a <color:#ffac12>copper ingot</color> \nwhile it rains to summon <color:#ffac12>lightning</color>. Shazam!",
             "Fish up <color:#ffac12>Drowned</color>, <color:#ffac12>Elder Guardians</color>, or <color:#ffac12>Guardians</color> \nfor some rare loot. Fishy treasures!",
-            "Sneak right-click to trade items with your pals. It's like item swaps!",
-            "Only 1 piece of <color:#ffac12>diamond armor</color> at a time. Gotta keep it balanced!",
+//            "Sneak right-click to trade items with your pals. It's like item swaps!",
+//            "Only 1 piece of <color:#ffac12>diamond armor</color> at a time. Gotta keep it balanced!",
             "Right-click <color:#ffac12>dirt</color> to make <color:#ffac12>moss</color>. Moss everywhere!",
             "Place an <color:#ffac12>Eye of Ender</color> in an <color:#ffac12>End Portal Frame</color> \nto teleport to the End. Adventure time!",
             "Brush <color:#ffac12>suspicious sand</color> to find cool <color:#ffac12>armor trims</color>, \nitems, or even <color:#ffac12>diamonds</color>. Gotta brush 'em all!",
@@ -77,7 +77,7 @@ public class TipAnnouncements implements Runnable {
 
         for (Player player : plugin.getServer().getOnlinePlayers()) {
             player.sendMessage(MiniMessage.miniMessage().deserialize(
-                    "<b><green>TIPS</green></b> ☞ " + nextTip
+                    "<b><yellow>Did you know?</yellow></b> " + nextTip
             ));
         }
 
