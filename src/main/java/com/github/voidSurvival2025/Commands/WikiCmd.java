@@ -22,137 +22,124 @@ public class WikiCmd {
         wiki.setAuthor("Awokens");
 
         List<String> pages = new ArrayList<>();
-        pages.add("<bold>      VOID WIKI</bold><newline><newline>\n" +
-                "Here you will find every custom feature made on here " +
-                "<color:#ffac12>The <color:#ff731c><b>Spring Edition II</b></color> Edition</color>.<newline><newline>Remember," +
-                " you can hover some text for more info if displayed.<newline>" +
-                "<newline>Author ✏ <color:#3bd1ff>Awokens</color>");
         pages.add("""
-                <bold>THE BASICS</bold>
-                • You are given 1 out of 4 essential items every 10 seconds.\
-                 What are these exactly? Cobblestone, Iron nuggets, Dirt and Oak Planks.\
+                <bold>      VOID WIKI</bold><newline><gradient:#7C17C6:#9B22F4:#A12AF9:#7C17C6>  Created By Awokens</gradient>
+                 \s
+                This book will list our custom features and their purposes.
+                → Chat, player, mobs and more
+                \s
+                <bold>TIP</bold>: Hover over some text for more info.
+               \s""");
 
-                • Enter /commands to view what commands you have access to""");
         pages.add("""
-                <bold>MOB MECHANICS</bold>\
+                <color:#f2d200>Chat Features</color>
+                
+                • <hover:show_text:'Displays your held item in chat'>[item] - held item</hover>
+                • <hover:show_text:'Displays a preview of your inventory in chat
+                  And you can see an extended preview by clicking the message'>[inv] - inventory</hover>
+                • <hover:show_text:'Displays a preview of your enderchest in chat
+                  And you can see an extended preview by clicking the message'>[ec] - enderchest</hover>
+                """);
 
-                • <hover:show_text:'Bats drop leather upon death'>Bats</hover>\
-
-                • <hover:show_text:'Drowned will not spawn with equipment'>Drowned</hover>\
-
-                • <hover:show_text:'Cure a Zombie Nitwit with potion of weakness. \
-                And right click the Zombie Nitwit with enchanted golden apple to cure a villager\
-                 with special trades'>Zombie Nitwit</hover>\
-
-                • <hover:show_text:'Gives Luck 3 if killed while having Luck 2. \
-                Can also uncommonly drop Heart of The Sea. But looting can increase the drop rate'>Elder Guardian</hover>\
-
-                • <hover:show_text:'Gives luck 2 while having luck 1'>Guardian</hover>\
-
-                • <hover:show_text:'Convert a Zombified Piglin with potion of strength. \
-                And right click the Zombified Piglin with enchanted golden apple to convert to a Piglin for bartering'>Zombified Piglin</hover>\
-
-                • <hover:show_text:'Piglins may not spawn naturally'>Piglin</hover>\
-
-                • <hover:show_text:'Will drop an emerald upon death. Looting can increase the drop count'>Wandering Trader</hover>\
-
-                • <hover:show_text:'Can rarely drop a netherwart. Looting can increase the drop rate'>Witch</hover>""");
         pages.add("""
-                <bold>PLAYER MECHANICS</bold>\
+                <color:#be00f2>Player Features</color>
+                
+                • <hover:show_text:'You can open your crafting table by sneaking\s
+                  and right click the crafting table while holding it'>Crafting Table</hover>
+                • <hover:show_text:'Let\\'s get technicaly here...
+                
+                  If you kill a player, they <red>lose half a heart</red>. And so
+                  they spawn back with <red>less hearts</red> each time basically.
+                
+                  Once they <red>lose all their hearts</red>, all their items drop
+                  except for <color:#ffe100>their hotbar or worn armor</color>.
+                
+                  While for you, <color:#4dff00>you gain half a heart</color> up to the default.
+                  Unless you eat a <color:#ff005d>corian root</color>, you gain additional hearts too.
+                
+                  '>Limited hearts</hover>
+                • <hover:show_text:'All player death messages are sent above
+                  your hotbar AKA action bar.'>Death messages</hover>
+                """);
 
-                • <hover:show_text:'Bone meal rooted dirt to make a grass block'>Rooted Dirt</hover>\
+        pages.add("""
+                <color:#ff0044>Hostile Mobs</color>
+                
+                • <hover:show_text:'A guardian or elder guardian can\s
+                  uncommonly be summoned by fishing'>[Elder] Guardian</hover>
+                • <hover:show_text:'You can get Zombified Piglins by
+                  striking lightning onto pigs with a lightning rod'>Zombified Piglin</hover>
+                • <hover:show_text:'You can cure a Zombified Piglin to
+                  become a Pigin by affecting the Piglin with Strength
+                  and giving the Piglin a golden apple'>Piglin</hover>
+                • <hover:show_text:'Witches can uncommonly drop nether warts
+                  And chances increase with Looting'>Witch</hover>
+                """);
 
-                • <hover:show_text:'Sneak right-click while holding a crafting table to virtual open a crafting bench as your disposal.'>Crafting Bench</hover>
-                • <hover:show_text:'Enter [item] in chat to comment a snapshot of your held item.
+        pages.add("""
+                <color:#7d7d7d>Block Features</color>
+                
+                • <hover:show_text:'TNT explodes differently on here.
+                  When ignited, it destroys blocks
+                  In a snake trail pattern, making
+                  raiding more fun and combative.'>TNT</hover>
+                • <hover:show_text:'Functions just like TNT!
+                  Just shoot it and boom!'>Fireball</hover>
+                • <hover:show_text:'Drop 32 Tuff blocks into an empty cauldron,\s
+                  while there is a campfire below the cauldron.'>How to make Obsidian</hover>
+                • <hover:show_text:'Simply right click on a dirt block with bone meal.'>How to create Moss</hover>
+                • <hover:show_text:'Simply right click on a lightning rod with copper ingot whilst raining'>Striking Lightning</hover>
+                • <hover:show_text:'Reviving a deadbush with bonemeal creates a\s
+                  random tree sapling or potentially a torchflower'>Reviving a Deadbush</hover>
+                • <hover:show_text:'Simply right click on a rooted dirt block to make grass blocks'>How to create Grass</hover>
+                • <hover:show_text:'Right click a dirt block with a water bottle'>Mud Block</hover>
+                • <hover:show_text:'Right click a mud block with a water bottle'>Clay Block</hover>
+                • <hover:show_text:'Right click a clay block with a water bottle'>Suspicious Sand</hover>
+                • <hover:show_text:'Breaking any type of tree leaf will uncommonly drop an apple'>Tree Leaves</hover>
+                """);
 
-                Enter [inv] in chat to comment a snapshot of your inventory snapshot.\s
-                Others may also click once to view details of your inventory snapshot.'>Chat Hover Preview</hover>
-                • <hover:show_text:'Death messages are sent through the action bar right above your hotbar.'>Death Messages</hover>
-                • <hover:show_text:'Right click Mud with a water bottle to make Clay.\s
-                Then again for sand or uncommonly make sus sand.'>Sand Making</hover>
-                • <hover:show_text:'1. Place 1 lit campfire.
-                2. Place 1 cauldron above campfire
-                3. Sneak right-click cauldron with 32 cobbled deepslate
-                4. Watch as the cauldron smelts down
-                 the cobble deepslate for a bit.
-                5. Vuala! You have obsidian.'>Obsidian Making</hover>
-                • <hover:show_text:'Ignite TNT to cause a snake trail explosion.
-                The length of the trail can destroy up to 270 blocks.
-                However if the block has a higher block
-                hardness, it may destroy less.'>Trail TNT</hover>
-                • <hover:show_text:'Revive the dead bush with bone meal back into a tree sapling type or a torchflower'>Dead Bush</hover>
-                • <hover:show_text:'Similar to trail TNT, but this time it's a shooting fireball, that's crazy bro!'>Trail Fireball</hover>
-                • <hover:show_text:'Right click a nautilus shell to be given shipwreck treasure loot'>Nautilus Shells</hover>
-                • <hover:show_text:'Right click lightning rod with copper ingot whilst in the
-                rain to summon lightning at the clicked lightning rod'>Lightning</hover>
-                • <hover:show_text:'Fish up these uncommon mobs:\s
-                Drowned, Elder Guardian or Guardian'>Fishing</hover>
-                • <hover:show_text:'Trade with others by sneak right-clicking each other.
-                 Which will swap both each other's held items.'>Hand Swap Trading</hover>
+        pages.add("""
+                <color:#bd6500>Item Features</color>
+                
+                • Nautilus shell
+                • Prismarine Shard
+                • Eye of Ender
                 """);
         pages.add("""
-                <bold>PLAYER MECHANICS</bold>\
-
-                • <hover:show_text:'You may only wear 1 piece of diamond armor at a time.'>Armor</hover>
-                • <hover:show_text:'Right click on dirt to make moss'>Moss Making</hover>
-                • <hover:show_text:'Place an eye of ender on an end portal frame
-                to be teleported to the End in an animated way.'>End Teleporting</hover>
-                • <hover:show_text:'Brush suspicious sand to commonly
-                 get basic armor trims, a dead bush or other miscellaneous items. Rarely, you may
-                find diamonds when brushing'>Suspicious Sand</hover>
-                • <hover:show_text:'Burn a skeleton whilst on soul soil to
-                summon a wither skeleton upon death'>Wither Skeleton</hover>
-                • <hover:show_text:'Burn a skeleton whilst on blackstone to
-                summon a blaze upon death'>Blaze</hover>
-                • <hover:show_text:'Break any leaves to probably drop an apple'>Apple</hover>
-                • <hover:show_text:'
-                You lose half a heart each time you die by a player directly
+                <color:#1787ff>Custom Mechanics</color>
                 
-                Upon your last heart, you drop everything except hot-bar items.
-                
-                Then your max hearts reset.
-                '>Default Heart Loss</hover>""");
-        pages.add("""
-                <bold>CUSTOM RECIPES</bold>
-                
-                • <hover:show_text:'Consume to gain half a heart back
-                or even gain +10 more hearts past the default
-                >Corian Root</hover>
+                • Summoning a Skeleton
+                • Summong a Wither Skeleton
+                • Curing a Zombified Piglin
                 """);
         pages.add("""
-                <bold>OVERWORLD</bold>\
+                <dark_aqua>Overworld</dark_aqua>
                 
-                • <hover:show_text:'Refer to Player Mechanics page'>Keep inventory on</hover>
+                • Keep inventory is on by default
+                • World blocks clear every 5 days
+                • Random large border size
+                • Cannot place blocks above Y 32
+                • Smells like mister_woo2
+                """);
+
+        pages.add("""
+                <color:#a656b8>The End</color>
+                
+                • Keep inventory is off by default
+                • World blocks do not clear
+                • Fixed border small size
+                • Cannot place blocks above Y 128
                 • Smells like Awokens
-                • Plenty of farming
-                • Clears periodically
-                • Lots of wataaaaaaa!
-                • Random border size
-                • Cannot <bold>place</bold> blocks above Y32""");
-        pages.add("""
-                <bold>THE END</bold>\
+                """);
 
-                • Keep inventory off\s
+        pages.add("""
+                <color:#c71208>The Nether</color>
+                
+                • Keep inventory is off by default
+                • Blocks do not clear
+                • Fixed border small size
+                • Cannot place blocks above Y 64
                 • Smells like Htxx
-                • Plenty of farming
-                • Does not clear
-                • Lots of water
-                • Return the same way you came in""");
-        pages.add("""
-                <bold>NETHER</bold>\
-
-                • Keep inventory off
-                • Smells like Awokens
-                • Gold farms, yay!
-                • Does not clear
-                • Lack of water
-                • Return the same way you came in""");
-        pages.add("""
-                <bold>POWERSKULLS</bold>\
-                
-                • <hover:show_text:'Counter arrow projectile damage significantly'>Skeleton</hover>\s
-                • <hover:show_text:'Saturated and disguised as a mob'>Zombie</hover>
-                • <hover:show_text:'Damage others like Mike Tyson'>Piglin</hover>
                 """);
 
         wiki.setPages(pages);
