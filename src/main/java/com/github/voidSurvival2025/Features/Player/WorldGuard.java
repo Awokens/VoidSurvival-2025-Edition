@@ -49,7 +49,18 @@ public class WorldGuard implements Listener {
         if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
         if (inProtectedRegion(event.getBlock().getLocation())) event.setCancelled(true);
 
-        if (event.getBlock().getY() > 32) {
+        if (!event.getPlayer().getWorld().getName().equalsIgnoreCase("world")) return;
+
+        int MAX_HEIGHT;
+
+        switch (event.getPlayer().getWorld().getName()) {
+            case "world_nether" -> MAX_HEIGHT = 64;
+            case "world_the_end" -> MAX_HEIGHT = 128;
+            default -> MAX_HEIGHT = 32;
+        }
+
+
+        if (event.getBlock().getY() > MAX_HEIGHT) {
             event.setCancelled(true);
             Particle.DustOptions options = new Particle.DustTransition(Color.RED, Color.RED, 3);
             event.getBlock().getWorld().spawnParticle(
