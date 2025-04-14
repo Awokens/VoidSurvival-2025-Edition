@@ -31,7 +31,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class WorldResetManager {
-    public final long RESET_TIMER = 60 * 60 * 24 * 2;
+    public final long RESET_TIMER = 60 * 60 * 24 * 5;
     private final int MAX_BORDER_THRESHOLD = 800;
     private final int MIN_BORDER_THRESHOLD = 300;
     private final World world = Bukkit.getWorld("world");
