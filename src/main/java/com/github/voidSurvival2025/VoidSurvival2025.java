@@ -4,6 +4,7 @@ import com.github.voidSurvival2025.Commands.*;
 import com.github.voidSurvival2025.Commands.Admin.ForceResetWorld;
 import com.github.voidSurvival2025.Commands.Admin.InventorySpy;
 import com.github.voidSurvival2025.Commands.Admin.MaxHealthCmd;
+import com.github.voidSurvival2025.Commands.Admin.SetOverworldClearTimer;
 import com.github.voidSurvival2025.Features.Entities.*;
 import com.github.voidSurvival2025.Features.Interact.*;
 import com.github.voidSurvival2025.Features.Player.*;
@@ -18,6 +19,9 @@ import com.github.voidSurvival2025.Manager.WorldResetManager;
 import com.samjakob.spigui.SpiGUI;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Statistic;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -30,7 +34,6 @@ public final class VoidSurvival2025 extends JavaPlugin {
     private ConfigManager configManager;
     private WorldResetManager mapResetScheduler;
     private SpiGUI spiGUI;
-
     private BukkitTask tipAnnouncements;
 
 //    private PowerSkullManager powerSkullManager;
@@ -49,6 +52,10 @@ public final class VoidSurvival2025 extends JavaPlugin {
 
 
 //        new PowerSkullCmd(this);
+        new WhatIsThisServerCmd();
+        new SetOverworldClearTimer(this);
+        new ServerRulesCmd(this);
+        new PingCmd(this);
         new InventorySpy(this);
         new PlayerStatsCmd(this);
         new MaxHealthCmd(this);
@@ -65,7 +72,14 @@ public final class VoidSurvival2025 extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        CommandAPI.onEnable();
+
+        if (!CommandAPI.isLoaded()) CommandAPI.onEnable();
+
+        for (Player player : this.getServer().getOnlinePlayers()) {
+            player.playerListName(MiniMessage.miniMessage().deserialize(
+                    "<white>" + player.getName() + " <color:#57caff>\uD83C\uDFA3</color> " + player.getStatistic(Statistic.FISH_CAUGHT)
+            ));
+        }
 
         spiGUI = new SpiGUI(this);
         luckPermsManager = new LuckPermsManager();
@@ -74,6 +88,7 @@ public final class VoidSurvival2025 extends JavaPlugin {
 //        this.powerSkullManager = new PowerSkullManager(this);
 
         registerListeners();
+
         this.getServer().getScheduler().runTaskTimer(
                 this,
                 new RandomItems(this),
@@ -84,7 +99,7 @@ public final class VoidSurvival2025 extends JavaPlugin {
         tipAnnouncements = this.getServer().getScheduler().runTaskTimer(
                 this,
                 new TipAnnouncements(this),
-                20L, 20L * 60L * 4L);
+                20L * 60L, 20L * 60L * 4L);
 
 
     }
@@ -108,14 +123,16 @@ public final class VoidSurvival2025 extends JavaPlugin {
         List<Listener> listeners = List.of(
 
                 // Entities
+                new WanderTrader(),
+                new VillagerTrades(),
                 new CreeperExplosionRadius(),
-                new GodVillager(),
-                new Piglin(this),
-                new Skeleton(),
-                new Witch(),
+                new PiglinConvert(this),
+                new SkeletonSummon(),
+                new WitchDrops(),
                 new Guardian(),
 
                 // Interact
+                new EnderPortalDebuff(),
                 new LightningRod(),
                 new FireballProjectile(this),
                 new CorianRoot(),
@@ -125,10 +142,11 @@ public final class VoidSurvival2025 extends JavaPlugin {
                 new DirtMoss(),
                 new EntityExplode(this),
                 new NautilusShell(),
-                new SuspiciousSand(),
+                new SusSandDrops(),
                 new LavaCauldronMechanism(this),
 
                 // Player
+                new NetherPortalEnter(),
                 new PlayerSaddleRidePlayer(this),
                 new PlayerFish(),
                 new PlayerBreakBlock(),
@@ -160,3 +178,36 @@ public final class VoidSurvival2025 extends JavaPlugin {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
