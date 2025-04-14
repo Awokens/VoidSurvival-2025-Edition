@@ -2,6 +2,8 @@ package com.github.voidSurvival2025.Features.Interact;
 
 import com.github.voidSurvival2025.Manager.SpawnPointManager;
 import com.github.voidSurvival2025.VoidSurvival2025;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -54,6 +56,9 @@ public class EnderEyePlace implements Listener {
                 new PotionEffect(PotionEffectType.NAUSEA, 20 * 10, 1, false, false, false)
         );
 
+
+
+
         Location init = player.getLocation().clone();
 
         player.playSound(init, Sound.BLOCK_PORTAL_TRIGGER, 1.0F, 1.0F);
@@ -64,6 +69,32 @@ public class EnderEyePlace implements Listener {
             case "world_the_end" -> SpawnPointManager.getWorldSpawn();
             default -> SpawnPointManager.getEndSpawn();
         };
+
+        if (whereTo.getWorld().getName().equalsIgnoreCase("world")) {
+            for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
+                if (onlinePlayer.getName().equalsIgnoreCase(player.getName())) {
+                    onlinePlayer.showTitle(Title.title(
+                            MiniMessage.miniMessage().deserialize("<gray>You Return..."),
+                            MiniMessage.miniMessage().deserialize("<gray>Home!")));
+                    continue;
+                }
+
+                onlinePlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 1, true));
+                onlinePlayer.showTitle(Title.title(MiniMessage.miniMessage().deserialize("<gray>A player returns..."), MiniMessage.miniMessage().deserialize("<gray>Home...")));
+            }
+        } else {
+            for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
+                if (onlinePlayer.getName().equalsIgnoreCase(player.getName())) {
+                    onlinePlayer.showTitle(Title.title(
+                            MiniMessage.miniMessage().deserialize("<gray>You enter..."),
+                            MiniMessage.miniMessage().deserialize("<gray>The End...")));
+                    continue;
+                }
+
+                onlinePlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 80, 1, true));
+                onlinePlayer.showTitle(Title.title(MiniMessage.miniMessage().deserialize("<gray>A player enters..."), MiniMessage.miniMessage().deserialize("<gray>The <obfuscated>abyss</obfuscated>...")));
+            }
+        }
 
         new BukkitRunnable() {
             @Override
