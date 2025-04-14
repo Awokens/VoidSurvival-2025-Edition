@@ -21,7 +21,12 @@ public class RandomItems implements Runnable{
     public void run() {
         Material[] items = {
                 Material.DIRT,
+                Material.DIRT,
                 Material.OAK_PLANKS,
+                Material.OAK_PLANKS,
+                Material.COBBLESTONE,
+                Material.COBBLESTONE,
+                Material.COBBLESTONE,
                 Material.COBBLESTONE,
                 Material.IRON_NUGGET
         };
