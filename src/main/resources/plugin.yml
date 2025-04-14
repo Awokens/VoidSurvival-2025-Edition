@@ -1,5 +1,5 @@
 name: VoidSurvival-2025
-version: '3.0.0'
+version: '3.1.0'
 main: com.github.voidSurvival2025.VoidSurvival2025
 api-version: '1.21'
 load: POSTWORLD
