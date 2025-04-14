@@ -18,11 +18,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Iterator;
 import java.util.Random;
 
-public class Piglin implements Listener {
+public class PiglinConvert implements Listener {
 
 
     private final VoidSurvival2025 plugin;
-    public Piglin(VoidSurvival2025 plugin) {
+    public PiglinConvert(VoidSurvival2025 plugin) {
         this.plugin = plugin;
     }
 
