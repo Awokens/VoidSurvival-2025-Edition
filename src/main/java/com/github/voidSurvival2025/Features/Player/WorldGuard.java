@@ -130,7 +130,7 @@ public class WorldGuard implements Listener {
         if (inProtectedRegion(event.getBlock().getLocation())) event.setCancelled(true);
     }
 
-    private boolean inProtectedRegion(Location location) {
+    public static boolean inProtectedRegion(Location location) {
 
         Location spawn = switch (location.getWorld().getName()) {
             case "world" -> SpawnPointManager.getWorldSpawn();
@@ -147,7 +147,7 @@ public class WorldGuard implements Listener {
         );
     }
 
-    private boolean inBound(Location location, Location loc1, Location loc2) {
+    public static boolean inBound(Location location, Location loc1, Location loc2) {
         double x = location.getX();
         double y = location.getY();
         double z = location.getZ();

@@ -17,17 +17,17 @@ import java.util.Collection;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class SusSandDrops implements Listener {
+public class SusGravelDrops implements Listener {
 
     @EventHandler
     public void brush(PlayerInteractEvent event) {
 
         Block block = event.getClickedBlock();
 
+
         if (block == null) return;
 
-        if (block.getType() != Material.SUSPICIOUS_SAND) return;
-
+        if (block.getType() != Material.SUSPICIOUS_GRAVEL) return;
 
         if (!(block.getState() instanceof BrushableBlock brushableBlock)) return;
 
@@ -35,7 +35,7 @@ public class SusSandDrops implements Listener {
 
         if (item.getType() != Material.AIR) return;
 
-        LootTable lootTable = Bukkit.getLootTable(LootTables.DESERT_PYRAMID.getKey());
+        LootTable lootTable = Bukkit.getLootTable(LootTables.ANCIENT_CITY.getKey());
 
         LootContext lootContext = new LootContext.Builder(block.getLocation())
                 .lootedEntity(null)
@@ -46,7 +46,8 @@ public class SusSandDrops implements Listener {
         Random random = new Random();
         ItemStack randomItem;
 
-        if (random.nextInt(100) <= 50) {
+
+        if (random.nextInt(100) <= 98) {
             int randomIndex = random.nextInt(common.length);
             randomItem = new ItemStack(common[randomIndex]);
         } else {
@@ -72,30 +73,23 @@ public class SusSandDrops implements Listener {
     private final Material[] common = {
             Material.BOW,
             Material.NAUTILUS_SHELL,
-            Material.NAUTILUS_SHELL,
             Material.FISHING_ROD,
             Material.BUNDLE,
             Material.CARROT,
+            Material.CARROT,
             Material.POTATO,
-            Material.BEETROOT_SEEDS,
-            Material.WHEAT_SEEDS,
+            Material.POTATO,
             Material.DEAD_BUSH,
             Material.DEAD_BUSH,
             Material.GOLD_INGOT,
             Material.COAL,
-            Material.COAST_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.EYE_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.WILD_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.RIB_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.HOST_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.VEX_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.WARD_ARMOR_TRIM_SMITHING_TEMPLATE,
-            Material.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE
+            Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
+            Material.NETHERITE_SCRAP,
+            Material.GOLD_INGOT,
+            Material.QUARTZ,
+            Material.CHORUS_PLANT,
+            Material.LAPIS_LAZULI,
+            Material.LAPIS_LAZULI,
+            Material.LAPIS_LAZULI,
     };
 }

@@ -27,12 +27,12 @@ public class WitchDrops implements Listener {
 
 
         if (lootingLevel < 1) {
-            return;
+            lootingLevel = 1;
         }
 
-        double chance = 15 + (5 * lootingLevel);
+        double chance = 10 + (5 * lootingLevel);
 
-        double randomValue = ThreadLocalRandom.current().nextInt(1, lootingLevel + 1);
+        double randomValue = ThreadLocalRandom.current().nextInt(1, 100);
 
         if (randomValue <= chance) {
             event.getDrops().add(new ItemStack(Material.NETHER_WART, 1));

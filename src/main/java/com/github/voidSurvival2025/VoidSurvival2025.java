@@ -1,10 +1,7 @@
 package com.github.voidSurvival2025;
 
 import com.github.voidSurvival2025.Commands.*;
-import com.github.voidSurvival2025.Commands.Admin.ForceResetWorld;
-import com.github.voidSurvival2025.Commands.Admin.InventorySpy;
-import com.github.voidSurvival2025.Commands.Admin.MaxHealthCmd;
-import com.github.voidSurvival2025.Commands.Admin.SetOverworldClearTimer;
+import com.github.voidSurvival2025.Commands.Admin.*;
 import com.github.voidSurvival2025.Features.Entities.*;
 import com.github.voidSurvival2025.Features.Interact.*;
 import com.github.voidSurvival2025.Features.Player.*;
@@ -13,6 +10,7 @@ import com.github.voidSurvival2025.Features.Powerskulls.SkeletonSkull;
 import com.github.voidSurvival2025.Features.Powerskulls.ZombieSkull;
 import com.github.voidSurvival2025.Manager.ConfigManager;
 import com.github.voidSurvival2025.Manager.LuckPermsManager;
+import com.github.voidSurvival2025.Manager.Methods.UpdatePlayerListName;
 import com.github.voidSurvival2025.Manager.Schedulers.RandomItems;
 import com.github.voidSurvival2025.Manager.Schedulers.TipAnnouncements;
 import com.github.voidSurvival2025.Manager.WorldResetManager;
@@ -20,11 +18,16 @@ import com.samjakob.spigui.SpiGUI;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -52,6 +55,7 @@ public final class VoidSurvival2025 extends JavaPlugin {
 
 
 //        new PowerSkullCmd(this);
+        new WorldCmd(this);
         new WhatIsThisServerCmd();
         new SetOverworldClearTimer(this);
         new ServerRulesCmd(this);
@@ -76,9 +80,7 @@ public final class VoidSurvival2025 extends JavaPlugin {
         if (!CommandAPI.isLoaded()) CommandAPI.onEnable();
 
         for (Player player : this.getServer().getOnlinePlayers()) {
-            player.playerListName(MiniMessage.miniMessage().deserialize(
-                    "<white>" + player.getName() + " <color:#57caff>\uD83C\uDFA3</color> " + player.getStatistic(Statistic.FISH_CAUGHT)
-            ));
+            new UpdatePlayerListName(player);
         }
 
         spiGUI = new SpiGUI(this);
@@ -100,6 +102,35 @@ public final class VoidSurvival2025 extends JavaPlugin {
                 this,
                 new TipAnnouncements(this),
                 20L * 60L, 20L * 60L * 4L);
+
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+
+        Team team = scoreboard.getTeam("collision");
+
+        if (team == null) {
+            team = scoreboard.registerNewTeam("collision");
+        }
+        team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
+
+
+        Team finalTeam = team;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+                    if (WorldGuard.inProtectedRegion(player.getLocation())) {
+                        if (!finalTeam.hasPlayer(player)) {
+                            finalTeam.addEntity(player);
+                        }
+                        continue;
+                    }
+
+                    if (finalTeam.hasPlayer(player)) {
+                        finalTeam.removeEntity(player);
+                    }
+                }
+            }
+        }.runTaskTimer(this, 20L, 20L);
 
 
     }
@@ -142,14 +173,18 @@ public final class VoidSurvival2025 extends JavaPlugin {
                 new DirtMoss(),
                 new EntityExplode(this),
                 new NautilusShell(),
+                new SusGravelDrops(),
                 new SusSandDrops(),
                 new LavaCauldronMechanism(this),
 
                 // Player
+                new PlayerCollideWithPlayer(this),
+                new PlayerAnvilXPLimit(),
+                new HandTradeSwap(this),
                 new NetherPortalEnter(),
                 new PlayerSaddleRidePlayer(this),
                 new PlayerFish(),
-                new PlayerBreakBlock(),
+                new PlayerBreakBlock(this),
 
                 new PlayerChat(this),
                 new PlayerDeath(),

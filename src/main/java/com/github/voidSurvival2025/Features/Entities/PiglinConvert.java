@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import javax.lang.model.element.ElementVisitor;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -29,12 +30,16 @@ public class PiglinConvert implements Listener {
     @EventHandler
     public void barter(PiglinBarterEvent event) {
 
+
+
         Iterator<ItemStack> outcome = event.getOutcome().iterator();
+
+
 
         while (outcome.hasNext()) {
             ItemStack item = outcome.next();
             switch (item.getType()) {
-                case OBSIDIAN, CRYING_OBSIDIAN -> outcome.remove();
+                case OBSIDIAN, CRYING_OBSIDIAN, BLACKSTONE, GRAVEL -> outcome.remove();
             }
         }
     }
@@ -72,7 +77,7 @@ public class PiglinConvert implements Listener {
 
         heldItem.subtract(1);
 
-        final int[] cureRateByTick = {new Random().nextInt(2000, 3600)};
+        final int[] cureRateByTick = {new Random().nextInt(20, 100)};
 
         zombifiedPiglin.getWorld().playSound(
                 zombifiedPiglin, Sound.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F, 1.0F);
@@ -110,7 +115,7 @@ public class PiglinConvert implements Listener {
 
                 cureRateByTick[0] -= 1;
                 zombifiedPiglin.getWorld().spawnParticle(
-                        Particle.DUST_COLOR_TRANSITION,
+                        Particle.DUST,
                         zombifiedPiglin.getLocation(),
                         1,
                         options

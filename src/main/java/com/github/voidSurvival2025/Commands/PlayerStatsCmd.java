@@ -10,10 +10,12 @@ import dev.jorel.commandapi.arguments.PlayerArgument;
 import dev.jorel.commandapi.arguments.StringArgument;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
 import org.bukkit.advancement.Advancement;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -33,7 +35,8 @@ public class PlayerStatsCmd {
         new CommandAPICommand("playerstat")
                 .withAliases("pstat", "playerstats", "stats")
                 .withFullDescription("View specific stats of others or yourself")
-                .withOptionalArguments(new StringArgument("target"))
+                .withOptionalArguments(new StringArgument("target").replaceSuggestions(ArgumentSuggestions.strings(
+                        Bukkit.getOnlinePlayers().stream().map(Player::getName).toArray(String[]::new))))
                 .executesPlayer((executor, args) -> {
 
                     String input = (String) args.getOptional("target").orElse(executor.getName());
@@ -44,9 +47,10 @@ public class PlayerStatsCmd {
                         ));
                         return;
                     }
-                    OfflinePlayer target = plugin.getServer().getOfflinePlayerIfCached(input);
 
-                    if (target == null || !target.hasPlayedBefore()) {
+                    OfflinePlayer target = plugin.getServer().getOfflinePlayer(input);
+
+                    if (!target.hasPlayedBefore()) {
                         executor.sendMessage(MiniMessage.miniMessage().deserialize(
                                 "<red>This player doesn't exist</red>"
                         ));
@@ -103,25 +107,6 @@ public class PlayerStatsCmd {
                     gui.setTag("playerstat");
 
                     executor.openInventory(gui.getInventory());
-
-//                    String id = ThreadLocalRandom.current().nextInt(100, 999) + "";
-
-//                    gui.setTag(id);
-//
-//
-//                    new BukkitRunnable() {
-//                        @Override
-//                        public void run() {
-//
-//                            if (plugin.spiGUI().findOpenWithTag(id).isEmpty()) {
-//
-//                                this.cancel();
-//                                return;
-//                            }
-////                            executor.sendMessage(MiniMessage.miniMessage().deserialize("Running"));
-//
-//                        }
-//                    }.runTaskTimer(plugin, 20L, 20L);
 
 
                 }).register();
