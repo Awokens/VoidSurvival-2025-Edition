@@ -1,12 +1,11 @@
 package com.github.voidSurvival2025.Features.Player;
 
-import com.github.voidSurvival2025.Manager.SpawnPointManager;
+import com.github.voidSurvival2025.Manager.Others.SpawnPointManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -22,11 +21,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class PlayerDeath implements Listener {
@@ -97,7 +93,6 @@ public class PlayerDeath implements Listener {
 
     @EventHandler
     public void death(PlayerDeathEvent event) {
-        event.deathMessage();
         event.deathMessage(Component.text(""));
 
         Player victim = event.getPlayer();
@@ -117,7 +112,7 @@ public class PlayerDeath implements Listener {
                 }
 
                 if (attacker.getType() == EntityType.PLAYER) {
-                    yield "a " + attacker.getName().toLowerCase();
+                    yield " " + attacker.getName().toLowerCase();
                 }
 
                 if (attacker instanceof Projectile projectile) {

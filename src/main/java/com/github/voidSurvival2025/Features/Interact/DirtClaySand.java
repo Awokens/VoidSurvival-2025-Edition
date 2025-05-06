@@ -18,7 +18,7 @@ public class DirtClaySand implements Listener {
     public void consume(PlayerItemConsumeEvent event) {
 
         Player player = event.getPlayer();
-        Block block = player.getTargetBlockExact(4);
+        Block block = player.getTargetBlockExact(3);
 
         if (block == null) return;
 
@@ -45,7 +45,7 @@ public class DirtClaySand implements Listener {
             return;
         }
 
-        player.setCooldown(Material.GLASS_BOTTLE, 5);
+        player.setCooldown(Material.GLASS_BOTTLE, 2);
         player.playSound(block.getLocation(), Sound.BLOCK_GRAVEL_BREAK, 0.5F, 0.5F);
         player.playSound(block.getLocation(), Sound.ITEM_DYE_USE, 0.5F, 0.5F);
 
@@ -66,7 +66,7 @@ public class DirtClaySand implements Listener {
             return;
         }
 
-        player.setCooldown(Material.GLASS_BOTTLE, 5);
+        player.setCooldown(Material.GLASS_BOTTLE, 2);
 
         used.setType(Material.GLASS_BOTTLE);
         block.setType(Material.CLAY);
@@ -93,7 +93,7 @@ public class DirtClaySand implements Listener {
             return;
         }
 
-        player.setCooldown(Material.GLASS_BOTTLE, 5);
+        player.setCooldown(Material.GLASS_BOTTLE, 2);
 
         used.setType(Material.GLASS_BOTTLE);
 

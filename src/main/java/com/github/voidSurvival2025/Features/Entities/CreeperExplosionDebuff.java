@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 
-public class CreeperExplosionRadius implements Listener {
+public class CreeperExplosionDebuff implements Listener {
 
     @EventHandler
     public void creeperIgnite(ExplosionPrimeEvent event) {

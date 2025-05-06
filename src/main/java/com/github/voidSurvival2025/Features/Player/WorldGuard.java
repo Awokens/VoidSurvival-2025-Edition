@@ -1,8 +1,9 @@
 package com.github.voidSurvival2025.Features.Player;
 
-import com.github.voidSurvival2025.Manager.SpawnPointManager;
+import com.github.voidSurvival2025.Manager.Others.SpawnPointManager;
 import com.github.voidSurvival2025.VoidSurvival2025;
 import org.bukkit.*;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +15,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerFishEvent;
 
 public class WorldGuard implements Listener {
 
@@ -33,6 +35,20 @@ public class WorldGuard implements Listener {
     public void self(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
         if (inProtectedRegion(player.getLocation())) event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void rod(PlayerFishEvent event) {
+        Entity entity = event.getHook().getHookedEntity();
+
+
+
+        if (!(entity instanceof Player player)) return;
+
+        if (!inProtectedRegion(player.getLocation())) return;
+
+        event.getHook().remove();
+
     }
 
     @EventHandler
@@ -56,7 +72,7 @@ public class WorldGuard implements Listener {
         switch (event.getPlayer().getWorld().getName()) {
             case "world_nether" -> MAX_HEIGHT = 64;
             case "world_the_end" -> MAX_HEIGHT = 128;
-            default -> MAX_HEIGHT = 32;
+            default -> MAX_HEIGHT = 64;
         }
 
 
@@ -77,7 +93,16 @@ public class WorldGuard implements Listener {
         if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
         if (inProtectedRegion(event.getBlock().getLocation())) event.setCancelled(true);
 
-        if (event.getBlock().getY() > 32) {
+        int MAX_HEIGHT;
+
+        switch (event.getPlayer().getWorld().getName()) {
+            case "world_nether" -> MAX_HEIGHT = 64;
+            case "world_the_end" -> MAX_HEIGHT = 128;
+            default -> MAX_HEIGHT = 64;
+        }
+
+
+        if (event.getBlock().getY() > MAX_HEIGHT) {
             event.setCancelled(true);
             Particle.DustOptions options = new Particle.DustTransition(Color.RED, Color.RED, 3);
             event.getBlock().getWorld().spawnParticle(

@@ -47,7 +47,7 @@ public class SusGravelDrops implements Listener {
         ItemStack randomItem;
 
 
-        if (random.nextInt(100) <= 98) {
+        if (random.nextInt(100) <= 10) {
             int randomIndex = random.nextInt(common.length);
             randomItem = new ItemStack(common[randomIndex]);
         } else {

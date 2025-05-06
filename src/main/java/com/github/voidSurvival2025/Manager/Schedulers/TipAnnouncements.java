@@ -18,7 +18,7 @@ public class TipAnnouncements implements Runnable {
             "Every 10 seconds, you get 1 of these items: \n<color:#ffac12>Cobblestone</color>, <color:#ffac12>Iron nuggets</color>, <color:#ffac12>Dirt</color>, or <color:#ffac12>Oak Planks</color>. Sweet, right?",
             "Type <color:#ffac12>/commands</color> to see all the things you can run!",
             "<color:#ffac12>Bats</color> drop leather when they bite the dust!",
-            "Kill an <color:#ffac12>Elder Guardian</color> for <color:#ffac12>Luck 3</color> \nand it might drop a <color:#ffac12>Heart of The Sea</color>. Fancy!",
+            "While having <color:#26ff84>potion effect of luck 1</color>\nKill a <color:#00c3ff>Guardian</color> for <color:#ffac12>Luck 2</color> <color:#ff3347></color>\nThen kill an <color:#0099ff>Elder Guardian </color>for <color:#ffac12>Luck 3!</color> \nand the Elder drops a <color:#ff3347>Heart of The Sea</color>. Fancy!",
             "<color:#ffac12>Guardians</color> give you <color:#ffac12>Luck 2</color> when you have <color:#ffac12>Luck 1</color>. It's like a lucky combo!",
             "Feed a <color:#ffac12>Zombified Piglin</color> a <color:#ffac12>Strength Potion</color> \nand an <color:#ffac12>Enchanted Golden Apple</color> to turn them into a <color:#ffac12>Piglin</color>. Magic!",
             "<color:#ffac12>Piglins</color> don’t spawn naturally. They're a bit shy!",

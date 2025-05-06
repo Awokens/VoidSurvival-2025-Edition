@@ -1,4 +1,4 @@
-package com.github.voidSurvival2025.Manager;
+package com.github.voidSurvival2025.Manager.Others;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

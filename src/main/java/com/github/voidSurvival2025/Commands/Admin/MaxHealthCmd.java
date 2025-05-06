@@ -38,7 +38,7 @@ public class MaxHealthCmd {
                         return;
                     }
 
-                    if (health <= 0.0 || health > 20.0) {
+                    if (health <= 0.0 || health > 40.0) {
                         player.sendMessage(MiniMessage.miniMessage().deserialize(
                                 "<red>Invalid health scale number</red>"
                         ));

@@ -1,15 +1,14 @@
 package com.github.voidSurvival2025.Features.Player;
 
+import com.github.voidSurvival2025.Manager.Others.UpdatePlayerListName;
 import com.github.voidSurvival2025.VoidSurvival2025;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
-import org.bukkit.Sound;
-import org.bukkit.Statistic;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -20,33 +19,33 @@ public class PlayerJoin implements Listener {
     private final VoidSurvival2025 plugin;
     public PlayerJoin(VoidSurvival2025 plugin) { this.plugin = plugin; }
 
-    @EventHandler
-    public void onConnect(AsyncPlayerPreLoginEvent event) {
-        if (event.getName().equalsIgnoreCase("khyreemckeen0")) {
-            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, MiniMessage.miniMessage().deserialize("unable to connect to server"));
-        }
-    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (plugin.luckPermsUtils().hasBossBarToggled(player)) {
-            plugin.worldResetManager().getMapResetBar().addPlayer(player);
+
+        if (player.getName().equalsIgnoreCase("awokens")) {
+            for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
+                onlinePlayer.playSound(onlinePlayer, Sound.ITEM_GOAT_HORN_SOUND_2, 0.5F, 1F);
+            }
+            event.joinMessage(MiniMessage.miniMessage().deserialize(
+                    "<color:#00bfff>The <white>Awokens</white> has joined</color>"
+            ));
+        } else if (player.hasPlayedBefore()) {
+            event.joinMessage(MiniMessage.miniMessage().deserialize(
+                    "<yellow>Welcome back <white>" + player.getName()
+            ));
+        } else {
+            event.joinMessage(MiniMessage.miniMessage().deserialize(
+                    "<white>" + player.getName() + " <yellow>has joined for the first time"
+            ));
         }
 
-        final Component header = MiniMessage.miniMessage().deserialize(
-                "<newline><white><b>VOID SURVIVAL</b></white><newline>"
-        );
-        final Component footer = MiniMessage.miniMessage().deserialize(
-                "<newline><white>leap.minehut.gg</white><newline>"
-        );
+        if (plugin.luckPermsUtils().hasBossBarToggled(player)) {
+            plugin.worldResetManager().getMapResetBar().addViewer(player);
+        }
 
-        player.sendPlayerListHeader(header);
-        player.sendPlayerListFooter(footer);
-
-        player.playerListName(MiniMessage.miniMessage().deserialize(
-                "<white>" + player.getName() + " <color:#57caff>\uD83C\uDFA3</color> " + player.getStatistic(Statistic.FISH_CAUGHT)
-        ));
+        new UpdatePlayerListName(player);
 
         String welcome_message;
         if (player.hasPlayedBefore()) {

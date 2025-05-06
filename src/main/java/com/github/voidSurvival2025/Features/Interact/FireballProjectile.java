@@ -1,7 +1,7 @@
 package com.github.voidSurvival2025.Features.Interact;
 
 
-import com.github.voidSurvival2025.Manager.TNTTrailManager;
+import com.github.voidSurvival2025.Manager.Others.TNTTrailManager;
 import com.github.voidSurvival2025.VoidSurvival2025;
 import org.bukkit.Material;
 import org.bukkit.Sound;

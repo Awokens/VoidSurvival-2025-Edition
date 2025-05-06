@@ -1,8 +1,10 @@
 package com.github.voidSurvival2025.Features.Powerskulls;
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,7 +38,10 @@ public class ZombieSkull implements Listener {
                 PotionEffect.INFINITE_DURATION,
                 1, true, true, true)
         );
-        player.playSound(player, Sound.ENTITY_ZOMBIE_AMBIENT, 1.0F, 1.0F);
+        Location position = player.getLocation();
+        World world = position.getWorld();
+        world.playSound(
+                position, Sound.ENTITY_ZOMBIE_AMBIENT, 1.0F, 1.0F);
     }
 
     @EventHandler
@@ -50,7 +55,10 @@ public class ZombieSkull implements Listener {
 
         if (helmet == null || helmet.getType() != Material.ZOMBIE_HEAD) return;
 
-        player.playSound(player, Sound.ENTITY_ZOMBIE_HURT, 1.0F, 1.0F);
+        Location position = player.getLocation();
+        World world = position.getWorld();
+        world.playSound(
+                position, Sound.ENTITY_ZOMBIE_HURT, 1.0F, 1.0F);
     }
 
     @EventHandler

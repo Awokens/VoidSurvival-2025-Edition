@@ -1,4 +1,4 @@
-package com.github.voidSurvival2025.Manager;
+package com.github.voidSurvival2025.Manager.Others;
 
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
@@ -7,6 +7,8 @@ import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.NodeType;
 import net.luckperms.api.node.types.MetaNode;
 import org.bukkit.entity.Player;
+
+import java.util.Random;
 
 public class LuckPermsManager {
     private final LuckPerms API;
@@ -93,6 +95,14 @@ public class LuckPermsManager {
         if (group == null || group.equalsIgnoreCase("default")) {
             return "<color:#b9b9b9>";
         }
-        return data.getPrefix() + "<white> ";
+
+        String prefix = data.getPrefix();
+
+        Random rand = new Random();
+        int randomNum = rand.nextInt(100) + 1;
+
+        prefix = prefix.replaceAll("%num%", randomNum + "");
+
+        return prefix + "<white> ";
     }
 }

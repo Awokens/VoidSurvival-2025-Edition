@@ -1,5 +1,6 @@
-package com.github.voidSurvival2025.Commands;
+package com.github.voidSurvival2025.Commands.Default;
 
+import com.github.voidSurvival2025.Manager.Others.WikiManager;
 import com.github.voidSurvival2025.VoidSurvival2025;
 import dev.jorel.commandapi.CommandAPICommand;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -18,7 +19,7 @@ public class WikiCmd {
     public WikiCmd(VoidSurvival2025 plugin) {
         this.plugin = plugin;
 
-        com.github.voidSurvival2025.Manager.WikiManager wiki = new com.github.voidSurvival2025.Manager.WikiManager();
+        WikiManager wiki = new WikiManager();
         wiki.setTitle("Wiki");
         wiki.setAuthor("Awokens");
 
@@ -149,7 +150,7 @@ public class WikiCmd {
                 • World blocks clear every 5 days
                 • Random large border size
                 • Cannot place blocks above Y 32
-                • Smells like mister_woo2
+                • Overworld Border (hover)
                 """);
 
         pages.add("""

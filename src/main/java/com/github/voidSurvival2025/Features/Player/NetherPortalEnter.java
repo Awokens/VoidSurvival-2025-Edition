@@ -1,6 +1,6 @@
 package com.github.voidSurvival2025.Features.Player;
 
-import com.github.voidSurvival2025.Manager.SpawnPointManager;
+import com.github.voidSurvival2025.Manager.Others.SpawnPointManager;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

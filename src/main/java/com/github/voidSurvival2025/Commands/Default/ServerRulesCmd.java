@@ -1,10 +1,7 @@
-package com.github.voidSurvival2025.Commands;
+package com.github.voidSurvival2025.Commands.Default;
 
 import com.github.voidSurvival2025.VoidSurvival2025;
-import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPICommand;
-import dev.jorel.commandapi.CommandPermission;
-import dev.jorel.commandapi.RegisteredCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -29,11 +26,13 @@ public class ServerRulesCmd {
                     HashMap<String, String> rules = new HashMap<>();
 
                     rules.put("Client Usage", "Do not use modified clients with INTENDED cheats");
+                    rules.put("Duping", "DO NOT DUPE - bri ish accent");
                     rules.put("Chatting", "Do not spam or flood the flow of chat");
                     rules.put("Language", "Do not comment INTENSE language or RACIAL profanity");
                     rules.put("Social", "Please do not impersonate staff or others unless obviously joking lol.");
                     rules.put("Heart Voiding", "You CANNOT log to avoid losing all HEARTS!");
                     rules.put("Other", "Do not ask me to TP you lmao.");
+                    rules.put("Soccer?", "NAH IT'S FOOTBALL OR FUTBOL - AWOKENS");
 
                     rules.forEach((rule, desc) -> player.sendMessage(MiniMessage.miniMessage().deserialize(
                             "→ <hover:show_text:'" + desc + "'>" + rule +"</hover>"

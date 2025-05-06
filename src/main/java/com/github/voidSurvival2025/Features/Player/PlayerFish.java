@@ -1,13 +1,13 @@
 package com.github.voidSurvival2025.Features.Player;
 
-import com.github.voidSurvival2025.Manager.Methods.UpdatePlayerListName;
+import com.github.voidSurvival2025.Manager.Others.UpdatePlayerListName;
+import com.github.voidSurvival2025.VoidSurvival2025;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.Statistic;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -62,7 +62,7 @@ public class PlayerFish implements Listener {
         }
 
 
-        double probability = 0.01D * lure;
+        double probability = 0.05D * lure;
 
 
 
@@ -82,7 +82,7 @@ public class PlayerFish implements Listener {
         Location hook = event.getHook().getLocation();
 
         Entity entity = hook.getWorld().spawnEntity(
-                hook, entityType, CreatureSpawnEvent.SpawnReason.NATURAL);
+                hook, entityType);
 
 
         entity.getWorld().playSound(

@@ -1,4 +1,4 @@
-package com.github.voidSurvival2025.Manager;
+package com.github.voidSurvival2025.Manager.Others;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;

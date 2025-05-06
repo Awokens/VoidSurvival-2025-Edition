@@ -12,6 +12,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,6 +35,10 @@ public class PlayerChat implements Listener {
             "join 10",
             "join ten",
             "nigger",
+            "nigg er",
+            "migger",
+            "mi gger",
+            "migg er",
             "nigga",
             "fagget",
             "fag",
@@ -83,7 +88,7 @@ public class PlayerChat implements Listener {
             }
         }
 
-        Bukkit.broadcast(MiniMessage.miniMessage().deserialize( plugin.luckPermsUtils().getPlayerRole(player) + player.getName()
+        Bukkit.broadcast(MiniMessage.miniMessage().deserialize( plugin.getTeamsConfig().getTeamsName(player) + plugin.luckPermsUtils().getPlayerRole(player) + player.getName()
                 + ": <white>" + message.trim()));
     }
 
@@ -104,7 +109,7 @@ public class PlayerChat implements Listener {
 
 
         return MiniMessage.miniMessage().deserialize(
-                plugin.luckPermsUtils().getPlayerRole(player)  + player.getName() + ": <gray>[<aqua>" + amount +
+                plugin.getTeamsConfig().getTeamsName(player) + plugin.luckPermsUtils().getPlayerRole(player)  + player.getName() + ": <gray>[<aqua>" + amount +
                         "x of " + name +
                         "</aqua>]</gray>"
         ).hoverEvent(hover);
@@ -126,8 +131,19 @@ public class PlayerChat implements Listener {
         SGMenu snapshot = plugin.spiGUI().create("&8Inventory Snapshot", 5);
         for (ItemStack item : items) {
             if (item == null || item.isEmpty()) continue;
-            meta.addItem(item);
-            snapshot.addButton(new SGButton(item));
+
+            if (Tag.ITEMS_BUNDLES.isTagged(item.getType())) {
+                BundleMeta bundleMeta = (BundleMeta) item.getItemMeta();
+
+                ItemStack bundleItem = new ItemStack(Material.BUNDLE, 1);
+
+                bundleItem.setItemMeta(bundleMeta);
+                meta.addItem(bundleItem);
+                snapshot.addButton(new SGButton(bundleItem));
+            } else {
+                meta.addItem(item);
+                snapshot.addButton(new SGButton(item));
+            }
         }
 
         final Inventory inventory = snapshot.getInventory();
@@ -148,7 +164,7 @@ public class PlayerChat implements Listener {
                     showItem -> showItem);
 
             final Component component = MiniMessage.miniMessage().deserialize(
-                            plugin.luckPermsUtils().getPlayerRole(player) + player.getName() + ": " + "<gray>[" + "<yellow>Inventory Snapshot<gray>]")
+                    plugin.getTeamsConfig().getTeamsName(player) + plugin.luckPermsUtils().getPlayerRole(player) + player.getName() + ": " + "<gray>[" + "<yellow>Inventory Snapshot<gray>]")
                     .hoverEvent(hover)
                     .clickEvent(ClickEvent.callback(audience -> {
                         individual.openInventory(inventory);
@@ -159,7 +175,7 @@ public class PlayerChat implements Listener {
 
     public Component levels(Player player) {
         return MiniMessage.miniMessage().deserialize(
-                plugin.luckPermsUtils().getPlayerRole(player)  + player.getName() + ": " + "<gray>[<green>XP Level " + player.getLevel() + "</gray>]"
+                plugin.getTeamsConfig().getTeamsName(player) + plugin.luckPermsUtils().getPlayerRole(player)  + player.getName() + ": " + "<gray>[<green>XP Level " + player.getLevel() + "</gray>]"
         ).decoration(TextDecoration.ITALIC, false);
     }
 

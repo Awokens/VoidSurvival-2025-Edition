@@ -1,4 +1,4 @@
-package com.github.voidSurvival2025.Commands;
+package com.github.voidSurvival2025.Commands.Default;
 
 import com.github.voidSurvival2025.VoidSurvival2025;
 import dev.jorel.commandapi.CommandAPICommand;
@@ -30,9 +30,9 @@ public class ToggleCmd {
                     toggled = !toggled;
 
                     if (!toggled) {
-                        plugin.worldResetManager().getMapResetBar().removePlayer(player);
+                        plugin.worldResetManager().getMapResetBar().removeViewer(player);
                     } else {
-                        plugin.worldResetManager().getMapResetBar().addPlayer(player);
+                        plugin.worldResetManager().getMapResetBar().addViewer(player);
                     }
 
                     plugin.luckPermsUtils().setBossBarToggled(player, toggled);

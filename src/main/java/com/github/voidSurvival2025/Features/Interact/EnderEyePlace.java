@@ -1,6 +1,6 @@
 package com.github.voidSurvival2025.Features.Interact;
 
-import com.github.voidSurvival2025.Manager.SpawnPointManager;
+import com.github.voidSurvival2025.Manager.Others.SpawnPointManager;
 import com.github.voidSurvival2025.VoidSurvival2025;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.title.Title;

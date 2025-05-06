@@ -1,10 +1,13 @@
 package com.github.voidSurvival2025.Features.Powerskulls;
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -22,8 +25,11 @@ public class SkeletonSkull implements Listener {
 
         if (newItem.getType() != Material.SKELETON_SKULL) return;
 
-        player.playSound(
-                player, Sound.ENTITY_SKELETON_CONVERTED_TO_STRAY, 1.0F, 1.0F);
+
+        Location position = player.getLocation();
+        World world = position.getWorld();
+        world.playSound(
+                position, Sound.ENTITY_SKELETON_CONVERTED_TO_STRAY, 1.0F, 1.0F);
 
     }
 
@@ -43,7 +49,14 @@ public class SkeletonSkull implements Listener {
         if (player.getCooldown(Material.SKELETON_SKULL) > 0) return;
 
         player.setCooldown(Material.SKELETON_SKULL, 20 * 3);
-        player.playSound(player, Sound.ENTITY_SKELETON_CONVERTED_TO_STRAY, 1.0F, 1.0F);
+        Location position = player.getLocation();
+        World world = position.getWorld();
+
+        world.playSound(position, Sound.ENTITY_BREEZE_DEFLECT, 1.0F, 1.0F);
+
+        event.setCancelled(true);
+
+
         event.setDamage(1);
     }
 }

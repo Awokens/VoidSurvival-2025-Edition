@@ -1,4 +1,4 @@
-package com.github.voidSurvival2025.Manager;
+package com.github.voidSurvival2025.Manager.Others;
 
 import com.fastasyncworldedit.core.FaweAPI;
 import com.github.voidSurvival2025.VoidSurvival2025;
@@ -16,58 +16,56 @@ import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldedit.world.block.BlockTypes;
+import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.*;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarFlag;
-import org.bukkit.boss.BarStyle;
-import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class WorldResetManager {
-    public final long RESET_TIMER = 60 * 60 * 24 * 5;
-    private final int MAX_BORDER_THRESHOLD = 800;
-    private final int MIN_BORDER_THRESHOLD = 300;
+    public final long RESET_TIMER = 60 * 60 * 24 * 3;
+//    private final int MAX_BORDER_THRESHOLD = 700;
+//    private final int MIN_BORDER_THRESHOLD = 500;
     private final World world = Bukkit.getWorld("world");
     private final BukkitTask task;
-    private final BossBar mapResetBar;
+    private final net.kyori.adventure.bossbar.BossBar mapResetBar;
     private final VoidSurvival2025 plugin;
     public WorldResetManager(VoidSurvival2025 plugin) {
 
         this.plugin = plugin;
 
-        mapResetBar = Bukkit.createBossBar(
-                "Loading...",
-                BarColor.GREEN,
-                BarStyle.SEGMENTED_20,
-                BarFlag.PLAY_BOSS_MUSIC);
-
-        mapResetBar.setVisible(true);
-
-        mapResetBar.setProgress(1.0);
+        mapResetBar = BossBar.bossBar(
+                Component.text("Loading..."),
+                1,
+                BossBar.Color.YELLOW,
+                BossBar.Overlay.NOTCHED_10
+        );
         for (Player player : Bukkit.getOnlinePlayers()) {
 
             if (plugin.luckPermsUtils().hasBossBarToggled(player)) {
-                mapResetBar.addPlayer(player);
+                mapResetBar.addViewer(player);
             }
         }
         this.task = new BukkitRunnable() {
             @Override
             public void run() {
                 long timeLeft = updateTime();
-                mapResetBar.setProgress(percentage(timeLeft));
-                mapResetBar.setTitle("Overworld will clear in: " + formatUnix(timeLeft));
+                mapResetBar.progress(percentage(timeLeft));
+
+                mapResetBar.name(MiniMessage.miniMessage().deserialize(
+                        "<b>ᴏᴠᴇʀᴡᴏʀʟᴅ ᴡɪʟʟ ᴄʟᴇᴀʀ ɪɴ</b> → " + formatUnix(timeLeft)
+                ));
             }
         }.runTaskTimer(plugin, 20L, 20L);
 
     }
-    public BossBar getMapResetBar() {
+    public net.kyori.adventure.bossbar.BossBar getMapResetBar() {
         return this.mapResetBar;
     }
     public BukkitTask getTask() {
@@ -95,16 +93,17 @@ public class WorldResetManager {
 
         return timestamp;
     }
-    public double percentage(long currentValue) {
 
-        double value = ((double) currentValue / (60L * 60L * 24L * 2L));
+    public float percentage(float currentValue) {
+        float value = currentValue / (60f * 60f * 24f * 2f);
 
-        if (value > 1.0D) value = 1.0D;
+        if (value > 1.0f) value = 1.0f;
 
-        if (value < 0.0D) value = 0.0D;
+        if (value < 0.0f) value = 0.0f;
 
         return value;
     }
+
     public String formatUnix(long timestamp) {
         // Convert Unix timestamp to milliseconds
         long milliseconds = timestamp * 1000;
@@ -132,9 +131,7 @@ public class WorldResetManager {
 
         return formattedTime.toString().trim();
     }
-    public int randomBorderSize() {
-        return ThreadLocalRandom.current().nextInt(MIN_BORDER_THRESHOLD, MAX_BORDER_THRESHOLD);
-    }
+    
     public void reset(boolean resetTimer) {
 
         if (world == null) {
@@ -159,23 +156,32 @@ public class WorldResetManager {
                         true
                 ));
                 player.stopAllSounds();
-                player.playSound(player, Sound.MUSIC_UNDER_WATER, 0.8F, 1.0F);
-                player.playSound(player, Sound.ENTITY_ELDER_GUARDIAN_CURSE, 0.7F, 0.5f);
                 player.showElderGuardian(true);
 
             });
         }
+
+        Location spawn = SpawnPointManager.getWorldSpawn();
+
+        world.playSound(spawn, Sound.MUSIC_UNDER_WATER, 1F, 1.0F);
+        world.playSound(spawn, Sound.ENTITY_ELDER_GUARDIAN_CURSE, 0.8F, 0.5f);
 
         WorldBorder border = world.getWorldBorder();
         Location center = border.getCenter().clone().toCenterLocation();
 
         double originalSize = border.getSize();
         double originalRadius = (originalSize / 2) + 5;
-        double size = randomBorderSize();
-        border.setSize((int) (size / 2) + 1);
+        int size = 400;
+        border.setSize(5);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                border.setSize(size + 1, TimeUnit.SECONDS, 2L * size);
+            }
+        }.runTaskLater(plugin, 5L);
 
         if (size > originalSize) {
-            originalRadius = size / 2 + 5;
+            originalRadius = (double) size / 2 + 5;
         }
 
         Location cornerA = center.clone().subtract(originalRadius, 0, originalRadius);

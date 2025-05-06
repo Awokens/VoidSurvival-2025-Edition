@@ -1,4 +1,4 @@
-package com.github.voidSurvival2025.Commands;
+package com.github.voidSurvival2025.Commands.Default;
 
 import com.github.voidSurvival2025.VoidSurvival2025;
 import dev.jorel.commandapi.CommandAPICommand;

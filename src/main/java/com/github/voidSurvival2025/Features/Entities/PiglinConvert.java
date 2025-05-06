@@ -1,6 +1,7 @@
 package com.github.voidSurvival2025.Features.Entities;
 
 import com.destroystokyo.paper.event.entity.PreCreatureSpawnEvent;
+import com.github.voidSurvival2025.Manager.Others.SpawnPointManager;
 import com.github.voidSurvival2025.VoidSurvival2025;
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
@@ -15,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import javax.lang.model.element.ElementVisitor;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -53,7 +53,7 @@ public class PiglinConvert implements Listener {
 
         Location location = event.getSpawnLocation();
 
-        if (!location.getWorld().getName().equalsIgnoreCase(com.github.voidSurvival2025.Manager.SpawnPointManager.getNetherSpawn().getWorld().getName())) return;
+        if (!location.getWorld().getName().equalsIgnoreCase(SpawnPointManager.getNetherSpawn().getWorld().getName())) return;
 
         if (event.getReason() != CreatureSpawnEvent.SpawnReason.NATURAL) return;
 
@@ -96,6 +96,8 @@ public class PiglinConvert implements Listener {
         };
 
         Particle.DustOptions options = new Particle.DustOptions(Color.WHITE, 5);
+
+
 
         new BukkitRunnable() {
             @Override

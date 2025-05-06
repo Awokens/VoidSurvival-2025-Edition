@@ -1,8 +1,10 @@
 package com.github.voidSurvival2025.Features.Powerskulls;
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,8 +24,10 @@ public class PiglinSkull implements Listener {
 
         if (newItem.getType() != Material.PIGLIN_HEAD) return;
 
-        player.playSound(
-                player, Sound.ENTITY_PIGLIN_AMBIENT, 1.0F, 1.0F);
+        Location position = player.getLocation();
+        World world = position.getWorld();
+        world.playSound(
+                position,  Sound.ENTITY_PIGLIN_AMBIENT, 1.0F, 1.0F);
 
     }
 
@@ -56,7 +60,10 @@ public class PiglinSkull implements Listener {
 
         if (helmet == null || helmet.getType() != Material.PIGLIN_HEAD) return;
 
-        player.playSound(player.getLocation(), Sound.ENTITY_PIGLIN_HURT, 1.0F, 1.0F);
+        Location position = player.getLocation();
+        World world = position.getWorld();
+        world.playSound(
+                position, Sound.ENTITY_PIGLIN_HURT, 1.0F, 1.0F);
 
     }
 }

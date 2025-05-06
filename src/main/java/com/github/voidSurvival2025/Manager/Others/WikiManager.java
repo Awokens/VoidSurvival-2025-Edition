@@ -1,4 +1,4 @@
-package com.github.voidSurvival2025.Manager;
+package com.github.voidSurvival2025.Manager.Others;
 
 import java.util.ArrayList;
 import java.util.List;

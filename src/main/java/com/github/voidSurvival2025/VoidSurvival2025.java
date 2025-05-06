@@ -1,32 +1,30 @@
 package com.github.voidSurvival2025;
 
-import com.github.voidSurvival2025.Commands.*;
 import com.github.voidSurvival2025.Commands.Admin.*;
+import com.github.voidSurvival2025.Commands.Default.*;
 import com.github.voidSurvival2025.Features.Entities.*;
 import com.github.voidSurvival2025.Features.Interact.*;
 import com.github.voidSurvival2025.Features.Player.*;
 import com.github.voidSurvival2025.Features.Powerskulls.PiglinSkull;
 import com.github.voidSurvival2025.Features.Powerskulls.SkeletonSkull;
 import com.github.voidSurvival2025.Features.Powerskulls.ZombieSkull;
-import com.github.voidSurvival2025.Manager.ConfigManager;
-import com.github.voidSurvival2025.Manager.LuckPermsManager;
-import com.github.voidSurvival2025.Manager.Methods.UpdatePlayerListName;
+import com.github.voidSurvival2025.Manager.Others.ConfigManager;
+import com.github.voidSurvival2025.Manager.Others.LuckPermsManager;
+import com.github.voidSurvival2025.Manager.Others.UpdatePlayerListName;
 import com.github.voidSurvival2025.Manager.Schedulers.RandomItems;
 import com.github.voidSurvival2025.Manager.Schedulers.TipAnnouncements;
-import com.github.voidSurvival2025.Manager.WorldResetManager;
+import com.github.voidSurvival2025.Manager.Others.WorldResetManager;
+import com.github.voidSurvival2025.Manager.Teams.TeamsConfig;
 import com.samjakob.spigui.SpiGUI;
 import dev.jorel.commandapi.CommandAPI;
 import dev.jorel.commandapi.CommandAPIBukkitConfig;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
-import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 import java.util.List;
@@ -39,7 +37,13 @@ public final class VoidSurvival2025 extends JavaPlugin {
     private SpiGUI spiGUI;
     private BukkitTask tipAnnouncements;
 
-//    private PowerSkullManager powerSkullManager;
+
+    private TeamsConfig config;
+
+    public TeamsConfig getTeamsConfig() {
+        return this.config;
+    }
+
 
     public LuckPermsManager luckPermsUtils() { return luckPermsManager; }
     public WorldResetManager worldResetManager() {
@@ -51,10 +55,14 @@ public final class VoidSurvival2025 extends JavaPlugin {
     public SpiGUI spiGUI() { return this.spiGUI; }
     @Override
     public void onLoad() {
-        CommandAPI.onLoad(new CommandAPIBukkitConfig(this).shouldHookPaperReload(true));
 
+        if (!CommandAPI.isLoaded()) {
+            CommandAPI.onLoad(new CommandAPIBukkitConfig(this).shouldHookPaperReload(true));
+        }
 
 //        new PowerSkullCmd(this);
+        new EnderchestSpy(this);
+        new TeamsCmd(this);
         new WorldCmd(this);
         new WhatIsThisServerCmd();
         new SetOverworldClearTimer(this);
@@ -87,6 +95,8 @@ public final class VoidSurvival2025 extends JavaPlugin {
         luckPermsManager = new LuckPermsManager();
         configManager = new ConfigManager(this, getDataFolder());
         mapResetScheduler = new WorldResetManager(this);
+        this.config = new TeamsConfig(this);
+
 //        this.powerSkullManager = new PowerSkullManager(this);
 
         registerListeners();
@@ -133,6 +143,7 @@ public final class VoidSurvival2025 extends JavaPlugin {
         }.runTaskTimer(this, 20L, 20L);
 
 
+
     }
 
     @Override
@@ -142,9 +153,9 @@ public final class VoidSurvival2025 extends JavaPlugin {
 
         tipAnnouncements.cancel();
 
-        worldResetManager()
-                .getMapResetBar()
-                .setVisible(false);
+        for (Player player : getServer().getOnlinePlayers()) {
+            player.hideBossBar(worldResetManager().getMapResetBar());
+        }
         worldResetManager()
                 .getTask()
                 .cancel();
@@ -154,13 +165,15 @@ public final class VoidSurvival2025 extends JavaPlugin {
         List<Listener> listeners = List.of(
 
                 // Entities
+                new EndermanChorusFruit(),
                 new WanderTrader(),
                 new VillagerTrades(),
-                new CreeperExplosionRadius(),
+                new CreeperExplosionDebuff(),
                 new PiglinConvert(this),
                 new SkeletonSummon(),
                 new WitchDrops(),
                 new Guardian(),
+                new SusGravelItemDrop(),
 
                 // Interact
                 new EnderPortalDebuff(),
@@ -178,7 +191,6 @@ public final class VoidSurvival2025 extends JavaPlugin {
                 new LavaCauldronMechanism(this),
 
                 // Player
-                new PlayerCollideWithPlayer(this),
                 new PlayerAnvilXPLimit(),
                 new HandTradeSwap(this),
                 new NetherPortalEnter(),
